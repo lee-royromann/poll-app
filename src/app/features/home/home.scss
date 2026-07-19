@@ -1,0 +1,68 @@
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.hero__text {
+  flex: 1;
+}
+
+.hero__headline {
+  font-family: var(--font-heading);
+  font-size: 56px;
+  line-height: 1.2;
+  color: var(--color-primary-orange);
+}
+
+.hero__description {
+  max-width: 460px;
+  margin: 24px 0 32px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.button {
+  border: none;
+  border-radius: var(--button-radius);
+  padding: var(--button-padding-block) var(--button-padding-inline);
+  background-color: var(--color-secondary-orange);
+  color: var(--color-primary-purple);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hero__visual {
+  position: relative;
+  flex: 1;
+  max-width: 426px;
+}
+
+.hero__card {
+  display: block;
+  width: 100%;
+  transition: opacity 200ms ease;
+}
+
+/* Stacked on top of the default artwork so both stay in the same spot while fading. */
+.hero__card--hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+/* Design specifies the hover effect for desktop only, not for touch devices. */
+@media (hover: hover) {
+  .hero__visual:hover .hero__card--default {
+    opacity: 0;
+  }
+
+  .hero__visual:hover .hero__card--hover {
+    opacity: 1;
+  }
+}
