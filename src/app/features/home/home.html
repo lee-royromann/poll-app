@@ -47,6 +47,34 @@
           Past survey
         </button>
       </div>
+
+      <div class="sort">
+        <button
+          class="sort__trigger"
+          type="button"
+          [class.sort__trigger--open]="isDropdownOpen() || selectedCategory()"
+          (click)="toggleDropdown()"
+        >
+          Sort by categories
+          <span class="sort__arrow" [class.sort__arrow--up]="isDropdownOpen()"></span>
+        </button>
+
+        @if (isDropdownOpen()) {
+          <ul class="sort__menu">
+            @for (category of categories; track category) {
+              <li>
+                <button class="sort__option" type="button" (click)="selectCategory(category)">
+                  {{ category }}
+                </button>
+              </li>
+            }
+          </ul>
+        }
+
+        @if (selectedCategory(); as category) {
+          <p class="sort__selected">{{ category }}</p>
+        }
+      </div>
     </div>
 
     <div class="list__grid">

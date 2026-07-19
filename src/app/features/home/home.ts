@@ -24,12 +24,37 @@ export class Home {
 
   activeTab = signal<'active' | 'past'>('active');
 
-  visibleSurveys = computed(() =>
-    this.activeTab() === 'active' ? this.activeSurveys() : this.pastSurveys(),
-  );
+  readonly categories = [
+    'Team Activities',
+    'Health & Wellness',
+    'Gaming & Entertainment',
+    'Education & Learning',
+    'Lifestyle & Preferences',
+    'Technology & Innovation',
+  ];
+
+  selectedCategory = signal<string | null>(null);
+
+  isDropdownOpen = signal(false);
+
+  visibleSurveys = computed(() => {
+    const byTab = this.activeTab() === 'active' ? this.activeSurveys() : this.pastSurveys();
+    const category = this.selectedCategory();
+    return category ? byTab.filter((survey) => survey.category === category) : byTab;
+  });
 
   showTab(tab: 'active' | 'past'): void {
     this.activeTab.set(tab);
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen.update((open) => !open);
+  }
+
+  /** Picking the active category again clears the filter. */
+  selectCategory(category: string): void {
+    this.selectedCategory.update((current) => (current === category ? null : category));
+    this.isDropdownOpen.set(false);
   }
 
   constructor() {

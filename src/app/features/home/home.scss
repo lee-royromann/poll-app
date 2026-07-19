@@ -148,3 +148,79 @@
   grid-template-columns: repeat(2, 513px);
   gap: 16px;
 }
+
+.sort {
+  position: relative;
+  width: 206px;
+}
+
+.sort__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 6px 4px 10px;
+  background-color: transparent;
+  color: var(--color-text-on-dark);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.sort__trigger--open {
+  background-color: rgb(255 255 255 / 8%);
+}
+
+/* Drawn with borders instead of an asset, since the design ships no arrow icon. */
+.sort__arrow {
+  border-top: 7px solid currentcolor;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+
+.sort__arrow--up {
+  transform: rotate(180deg);
+}
+
+.sort__trigger--open .sort__arrow {
+  color: var(--color-primary-orange);
+}
+
+.sort__menu {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  border-radius: 6px;
+  padding: 6px 0;
+  background-color: #ffffff;
+  list-style: none;
+}
+
+.sort__option {
+  width: 100%;
+  height: 30px;
+  border: none;
+  padding: 0 10px;
+  background-color: transparent;
+  color: var(--color-primary-purple);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sort__option:hover {
+  background-color: var(--color-overlay);
+}
+
+.sort__selected {
+  margin: 4px 0 0;
+  font-size: 16px;
+  color: var(--color-primary-orange);
+}
