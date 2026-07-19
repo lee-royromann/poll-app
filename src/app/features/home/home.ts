@@ -17,8 +17,20 @@ export class Home {
 
   activeSurveys = computed(() => this.surveys().filter((survey) => !this.hasEnded(survey)));
 
+  pastSurveys = computed(() => this.surveys().filter((survey) => this.hasEnded(survey)));
+
   /** The service already sorts by end date, so the first three are the most urgent. */
   endingSoon = computed(() => this.activeSurveys().slice(0, 3));
+
+  activeTab = signal<'active' | 'past'>('active');
+
+  visibleSurveys = computed(() =>
+    this.activeTab() === 'active' ? this.activeSurveys() : this.pastSurveys(),
+  );
+
+  showTab(tab: 'active' | 'past'): void {
+    this.activeTab.set(tab);
+  }
 
   constructor() {
     this.loadSurveys();

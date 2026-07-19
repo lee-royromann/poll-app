@@ -28,8 +28,29 @@
   </div>
 
   <div class="list">
+    <div class="list__filters">
+      <div class="tabs">
+        <button
+          class="tab"
+          type="button"
+          [class.tab--active]="activeTab() === 'active'"
+          (click)="showTab('active')"
+        >
+          Active survey
+        </button>
+        <button
+          class="tab"
+          type="button"
+          [class.tab--active]="activeTab() === 'past'"
+          (click)="showTab('past')"
+        >
+          Past survey
+        </button>
+      </div>
+    </div>
+
     <div class="list__grid">
-      @for (survey of activeSurveys(); track survey.id) {
+      @for (survey of visibleSurveys(); track survey.id) {
         <app-survey-list-card [survey]="survey" />
       }
     </div>
