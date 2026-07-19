@@ -29,7 +29,13 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": [
+              "node_modules/@fontsource/nerko-one/400.css",
+              "node_modules/@fontsource/mulish/400.css",
+              "node_modules/@fontsource/mulish/600.css",
+              "node_modules/@fontsource/mulish/700.css",
+              "src/styles.scss"
+            ]
           },
           "configurations": {
             "production": {

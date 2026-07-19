@@ -1,1 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-primary-purple: #35273a;
+  --color-primary-orange: #ffb770;
+  --color-secondary-orange: #ffcfa1;
+  --color-bg-card: #faf5fe;
+  --color-overlay: #fee9d4;
+  --color-text-on-dark: #ffffff;
+
+  --font-heading: 'Nerko One', cursive;
+  --font-body: 'Mulish', sans-serif;
+  --font-weight-body: 600;
+
+  --button-radius: 10px;
+  --button-padding-block: 12px;
+  --button-padding-inline: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-primary-purple);
+  color: var(--color-text-on-dark);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
