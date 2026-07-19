@@ -13,6 +13,8 @@
   --button-radius: 10px;
   --button-padding-block: 12px;
   --button-padding-inline: 16px;
+
+  --content-width: 1220px;
 }
 
 * {
@@ -36,4 +38,10 @@ h6 {
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
+}
+
+/* Centred content column of the 1440px design, which leaves 110px on each side. */
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
 }
