@@ -19,5 +19,11 @@
 
   <div class="highlights">
     <h3 class="highlights__title">Ending soon surveys</h3>
+
+    <div class="highlights__row">
+      @for (survey of endingSoon(); track survey.id) {
+        <app-survey-card [survey]="survey" />
+      }
+    </div>
   </div>
 </section>

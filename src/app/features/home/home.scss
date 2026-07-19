@@ -96,3 +96,9 @@
   line-height: 100%;
   color: var(--color-text-on-dark);
 }
+
+.highlights__row {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
+}
