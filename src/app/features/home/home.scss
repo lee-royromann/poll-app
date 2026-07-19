@@ -71,3 +71,28 @@
     opacity: 1;
   }
 }
+
+.surveys {
+  padding-top: 90px;
+}
+
+.surveys__title {
+  font-family: var(--font-heading);
+  font-size: 72px;
+  line-height: 100%;
+  color: var(--color-primary-orange);
+  text-align: center;
+}
+
+.highlights {
+  padding-top: 56px;
+}
+
+.highlights__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 100%;
+  color: var(--color-text-on-dark);
+}
