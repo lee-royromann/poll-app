@@ -51,9 +51,9 @@ export class Home {
     this.isDropdownOpen.update((open) => !open);
   }
 
-  /** Picking the active category again clears the filter. */
-  selectCategory(category: string): void {
-    this.selectedCategory.update((current) => (current === category ? null : category));
+  /** Passing null resets the filter, which is what the "All categories" entry does. */
+  selectCategory(category: string | null): void {
+    this.selectedCategory.set(category);
     this.isDropdownOpen.set(false);
   }
 
