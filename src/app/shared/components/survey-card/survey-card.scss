@@ -1,0 +1,35 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 321px;
+  height: 310px;
+  padding: 40px 18px;
+  border-radius: 0 80px 0 0;
+  background-color: var(--color-bg-card);
+  color: var(--color-primary-purple);
+}
+
+.card__category {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.card__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* Pushed to the bottom of the card, independent of how long the title is. */
+.card__badge {
+  margin-top: auto;
+  align-self: flex-start;
+  border-radius: 0 14px 0 0;
+  padding: 3px 6px;
+  background-color: var(--color-secondary-orange);
+  font-size: 12px;
+  font-weight: 500;
+}

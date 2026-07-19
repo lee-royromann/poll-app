@@ -1,0 +1,8 @@
+<article class="card">
+  <p class="card__category">{{ survey().category }}</p>
+  <h4 class="card__title">{{ survey().title }}</h4>
+
+  @if (endsLabel(); as label) {
+    <span class="card__badge">{{ label }}</span>
+  }
+</article>
