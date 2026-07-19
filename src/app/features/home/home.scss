@@ -105,3 +105,15 @@
   justify-content: space-between;
   padding-top: 32px;
 }
+
+.list {
+  max-width: var(--surveys-width);
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+.list__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 513px);
+  gap: 16px;
+}

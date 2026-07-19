@@ -3,12 +3,12 @@ import { Survey } from '../../../core/models/survey';
 import { endsLabel } from '../../../core/utils/deadline';
 
 @Component({
-  selector: 'app-survey-card',
+  selector: 'app-survey-list-card',
   imports: [],
-  templateUrl: './survey-card.html',
-  styleUrl: './survey-card.scss',
+  templateUrl: './survey-list-card.html',
+  styleUrl: './survey-list-card.scss',
 })
-export class SurveyCard {
+export class SurveyListCard {
   survey = input.required<Survey>();
 
   endsLabel = computed(() => endsLabel(this.survey().end_date));

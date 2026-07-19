@@ -26,4 +26,12 @@
       }
     </div>
   </div>
+
+  <div class="list">
+    <div class="list__grid">
+      @for (survey of activeSurveys(); track survey.id) {
+        <app-survey-list-card [survey]="survey" />
+      }
+    </div>
+  </div>
 </section>

@@ -1,0 +1,38 @@
+/* Fixed height with space-between reproduces the even spacing of the design. */
+.list-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 513px;
+  height: 127px;
+  padding: 12px 20px;
+  border-radius: 5px 50px 5px 5px;
+  background-color: rgb(217 217 217 / 8%);
+}
+
+.list-card__category {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
+  color: var(--color-secondary-orange);
+}
+
+.list-card__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 100%;
+  color: var(--color-text-on-dark);
+}
+
+.list-card__badge {
+  align-self: flex-end;
+  border-radius: 0 14px 0 0;
+  padding: 3px 6px;
+  background-color: var(--color-secondary-orange);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-primary-purple);
+}

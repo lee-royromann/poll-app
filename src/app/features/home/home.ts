@@ -1,11 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { SurveyCard } from '../../shared/components/survey-card/survey-card';
+import { SurveyListCard } from '../../shared/components/survey-list-card/survey-list-card';
 import { SurveyService } from '../../core/services/survey.service';
 import { Survey } from '../../core/models/survey';
 
 @Component({
   selector: 'app-home',
-  imports: [SurveyCard],
+  imports: [SurveyCard, SurveyListCard],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
