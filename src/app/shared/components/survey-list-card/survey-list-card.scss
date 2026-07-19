@@ -1,10 +1,9 @@
-/* Fixed height with space-between reproduces the even spacing of the design. */
+/* Height follows the content as in the design; the gap is what makes it 127px tall. */
 .list-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 22.5px;
   width: 513px;
-  height: 127px;
   padding: 12px 20px;
   border-radius: 5px 50px 5px 5px;
   background-color: rgb(217 217 217 / 8%);
@@ -29,6 +28,7 @@
 
 .list-card__badge {
   align-self: flex-end;
+  line-height: 100%;
   border-radius: 0 14px 0 0;
   padding: 3px 6px;
   background-color: var(--color-secondary-orange);
