@@ -52,11 +52,15 @@
         <button
           class="sort__trigger"
           type="button"
-          [class.sort__trigger--open]="isDropdownOpen() || selectedCategory()"
+          [class.sort__trigger--open]="isDropdownOpen()"
           (click)="toggleDropdown()"
         >
           Sort by categories
-          <span class="sort__arrow" [class.sort__arrow--up]="isDropdownOpen()"></span>
+          <span
+            class="sort__arrow"
+            [class.sort__arrow--active]="isDropdownOpen() || selectedCategory()"
+            [class.sort__arrow--up]="isDropdownOpen()"
+          ></span>
         </button>
 
         @if (isDropdownOpen()) {
