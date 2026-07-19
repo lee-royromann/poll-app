@@ -27,6 +27,10 @@ body {
   color: var(--color-text-on-dark);
   font-family: var(--font-body);
   font-weight: var(--font-weight-body);
+
+  /* Subpixel smoothing makes the text look heavier than the Figma design. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
