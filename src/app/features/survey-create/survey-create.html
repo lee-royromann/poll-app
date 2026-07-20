@@ -65,24 +65,12 @@
             </div>
           </div>
 
-          <div class="category">
-            <button class="category__trigger" type="button" (click)="toggleCategory()">
-              {{ category() ?? 'Choose category' }}
-              <span class="category__arrow" [class.category__arrow--up]="isCategoryOpen()"></span>
-            </button>
-
-            @if (isCategoryOpen()) {
-              <ul class="category__menu">
-                @for (option of categories; track option) {
-                  <li>
-                    <button class="category__option" type="button" (click)="selectCategory(option)">
-                      {{ option }}
-                    </button>
-                  </li>
-                }
-              </ul>
-            }
-          </div>
+          <app-category-dropdown
+            placeholder="Choose category"
+            [options]="categories"
+            [selected]="category()"
+            (selectionChange)="category.set($event)"
+          />
         </div>
       </div>
 

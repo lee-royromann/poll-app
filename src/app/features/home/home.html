@@ -50,43 +50,13 @@
         </button>
       </div>
 
-      <div class="sort">
-        <button
-          class="sort__trigger"
-          type="button"
-          [class.sort__trigger--open]="isDropdownOpen()"
-          (click)="toggleDropdown()"
-        >
-          Sort by categories
-          <span
-            class="sort__arrow"
-            [class.sort__arrow--active]="isDropdownOpen() || selectedCategory()"
-            [class.sort__arrow--up]="isDropdownOpen()"
-          ></span>
-        </button>
-
-        @if (isDropdownOpen()) {
-          <ul class="sort__menu">
-            <li>
-              <button class="sort__option" type="button" (click)="selectCategory(null)">
-                All categories
-              </button>
-            </li>
-
-            @for (category of categories; track category) {
-              <li>
-                <button class="sort__option" type="button" (click)="selectCategory(category)">
-                  {{ category }}
-                </button>
-              </li>
-            }
-          </ul>
-        }
-
-        @if (selectedCategory(); as category) {
-          <p class="sort__selected">{{ category }}</p>
-        }
-      </div>
+      <app-category-dropdown
+        placeholder="Sort by categories"
+        [options]="categories"
+        [selected]="selectedCategory()"
+        resetLabel="All categories"
+        (selectionChange)="selectCategory($event)"
+      />
     </div>
 
     <div class="list__grid">

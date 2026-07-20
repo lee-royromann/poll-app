@@ -3,13 +3,14 @@ import { RouterLink } from '@angular/router';
 import { Header } from '../../shared/components/header/header';
 import { SurveyCard } from '../../shared/components/survey-card/survey-card';
 import { SurveyListCard } from '../../shared/components/survey-list-card/survey-list-card';
+import { CategoryDropdown } from '../../shared/components/category-dropdown/category-dropdown';
 import { SurveyService } from '../../core/services/survey.service';
 import { Survey } from '../../core/models/survey';
 import { CATEGORIES } from '../../core/constants/categories';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, Header, SurveyCard, SurveyListCard],
+  imports: [RouterLink, Header, SurveyCard, SurveyListCard, CategoryDropdown],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
@@ -31,8 +32,6 @@ export class Home {
 
   selectedCategory = signal<string | null>(null);
 
-  isDropdownOpen = signal(false);
-
   visibleSurveys = computed(() => {
     const byTab = this.activeTab() === 'active' ? this.activeSurveys() : this.pastSurveys();
     const category = this.selectedCategory();
@@ -43,14 +42,8 @@ export class Home {
     this.activeTab.set(tab);
   }
 
-  toggleDropdown(): void {
-    this.isDropdownOpen.update((open) => !open);
-  }
-
-  /** Passing null resets the filter, which is what the "All categories" entry does. */
   selectCategory(category: string | null): void {
     this.selectedCategory.set(category);
-    this.isDropdownOpen.set(false);
   }
 
   constructor() {
