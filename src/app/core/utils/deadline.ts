@@ -1,22 +1,27 @@
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
-/** Rounded up so a survey running out later today still counts as one full day. */
-export function daysUntil(endDate: string | null): number | null {
-  if (!endDate) {
-    return null;
-  }
-  const remaining = new Date(endDate).getTime() - Date.now();
-  return Math.ceil(remaining / MS_PER_DAY);
+/**
+ * Calendar days from today until the end date, so a survey stays open for its whole
+ * last day instead of expiring at midnight. Zero means it ends today.
+ */
+function daysUntil(endDate: string): number {
+  const end = new Date(`${endDate}T00:00:00`);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return Math.round((end.getTime() - today.getTime()) / MS_PER_DAY);
 }
 
-/** Null only for surveys without a deadline, which is the one case with nothing to show. */
+export function hasEnded(endDate: string | null): boolean {
+  return endDate !== null && daysUntil(endDate) < 0;
+}
+
 export function endsLabel(endDate: string | null): string | null {
-  const days = daysUntil(endDate);
-  if (days === null) {
+  if (endDate === null) {
     return null;
   }
-  if (days <= 0) {
+  const days = daysUntil(endDate);
+  if (days < 0) {
     return 'Ended';
   }
-  return days === 1 ? 'Ends in 1 Day' : `Ends in ${days} Days`;
+  return days <= 1 ? 'Ends in 1 Day' : `Ends in ${days} Days`;
 }

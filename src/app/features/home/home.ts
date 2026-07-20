@@ -7,6 +7,7 @@ import { CategoryDropdown } from '../../shared/components/category-dropdown/cate
 import { SurveyService } from '../../core/services/survey.service';
 import { Survey } from '../../core/models/survey';
 import { CATEGORIES } from '../../core/constants/categories';
+import { hasEnded } from '../../core/utils/deadline';
 
 @Component({
   selector: 'app-home',
@@ -19,9 +20,9 @@ export class Home {
 
   surveys = signal<Survey[]>([]);
 
-  activeSurveys = computed(() => this.surveys().filter((survey) => !this.hasEnded(survey)));
+  activeSurveys = computed(() => this.surveys().filter((survey) => !hasEnded(survey.end_date)));
 
-  pastSurveys = computed(() => this.surveys().filter((survey) => this.hasEnded(survey)));
+  pastSurveys = computed(() => this.surveys().filter((survey) => hasEnded(survey.end_date)));
 
   /** The service already sorts by end date, so the first three are the most urgent. */
   endingSoon = computed(() => this.activeSurveys().slice(0, 3));
@@ -52,9 +53,5 @@ export class Home {
 
   private async loadSurveys(): Promise<void> {
     this.surveys.set(await this.surveyService.getAll());
-  }
-
-  private hasEnded(survey: Survey): boolean {
-    return survey.end_date !== null && new Date(survey.end_date).getTime() < Date.now();
   }
 }
