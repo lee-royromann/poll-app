@@ -129,9 +129,10 @@
   color: var(--color-text-on-dark);
 }
 
+/* The gap follows from the container width, so this row always lines up with the list below. */
 .highlights__row {
   display: flex;
-  gap: 32px;
+  justify-content: space-between;
   padding-top: 32px;
 }
 
