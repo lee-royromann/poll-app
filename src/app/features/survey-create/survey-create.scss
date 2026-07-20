@@ -1,7 +1,3 @@
-.sprite {
-  display: none;
-}
-
 .create {
   min-height: 100vh;
   padding: 72px 0;
@@ -147,20 +143,19 @@
   background-color: var(--color-overlay);
 }
 
-/* Trash icon is hand-drawn because the handoff ships no delete asset. */
+/* The hover asset already contains the 26x26 frame, so only the size changes. */
 .delete {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
   border: none;
   border-radius: 3px;
-  padding: 4px;
-  background-color: transparent;
-  color: #ffffff;
+  padding: 0;
+  background: url("/delete.svg") no-repeat center / 18px 20px;
   cursor: pointer;
 }
 
-.delete__icon {
-  width: 100%;
-  height: 100%;
+.delete:hover {
+  background-image: url("/delete_hover.svg");
+  background-size: 26px 26px;
 }

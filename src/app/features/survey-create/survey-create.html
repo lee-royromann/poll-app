@@ -1,12 +1,3 @@
-<svg class="sprite" aria-hidden="true">
-  <symbol id="icon-trash" viewBox="0 0 24 24">
-    <path
-      fill="currentColor"
-      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"
-    />
-  </symbol>
-</svg>
-
 <section class="create">
   <div class="panel">
     <header class="panel__head">
@@ -40,9 +31,7 @@
               [ngModel]="title()"
               (ngModelChange)="title.set($event)"
             />
-            <button class="delete" type="button" (click)="title.set('')" aria-label="Clear survey name">
-              <svg class="delete__icon"><use href="#icon-trash" /></svg>
-            </button>
+            <button class="delete" type="button" (click)="title.set('')" aria-label="Clear survey name"></button>
           </div>
         </div>
 
@@ -59,9 +48,7 @@
                 [ngModel]="endDate()"
                 (ngModelChange)="endDate.set($event)"
               />
-              <button class="delete" type="button" (click)="endDate.set('')" aria-label="Clear end date">
-                <svg class="delete__icon"><use href="#icon-trash" /></svg>
-              </button>
+              <button class="delete" type="button" (click)="endDate.set('')" aria-label="Clear end date"></button>
             </div>
           </div>
 
@@ -86,9 +73,7 @@
               [ngModel]="description()"
               (ngModelChange)="description.set($event)"
             ></textarea>
-            <button class="delete" type="button" (click)="description.set('')" aria-label="Clear description">
-              <svg class="delete__icon"><use href="#icon-trash" /></svg>
-            </button>
+            <button class="delete" type="button" (click)="description.set('')" aria-label="Clear description"></button>
           </div>
         </div>
       </div>
