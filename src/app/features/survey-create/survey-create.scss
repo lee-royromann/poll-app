@@ -24,14 +24,15 @@
 
 .panel__head {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.panel__heading {
-  display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* Cancel sits on the title line, not next to the draft tag. */
+.panel__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .tag {
@@ -88,8 +89,10 @@
   gap: 8px;
 }
 
+/* Top aligned so the category dropdown lines up with the labels, as in the design. */
 .fields__inline {
   display: flex;
+  align-items: flex-start;
   gap: 16px;
 }
 
