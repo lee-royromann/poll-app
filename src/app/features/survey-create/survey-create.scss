@@ -65,6 +65,11 @@
   text-decoration: none;
 }
 
+/* Secondary button hover doubles the orange opacity, matching the delete icon asset. */
+.cancel:hover {
+  background-color: rgb(255 183 112 / 60%);
+}
+
 .cancel__icon {
   width: 14px;
   height: 14px;
