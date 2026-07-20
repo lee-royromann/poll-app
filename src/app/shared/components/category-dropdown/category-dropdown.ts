@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-category-dropdown',
@@ -7,6 +7,8 @@ import { Component, input, output, signal } from '@angular/core';
   styleUrl: './category-dropdown.scss',
 })
 export class CategoryDropdown {
+  private host = inject(ElementRef<HTMLElement>);
+
   placeholder = input.required<string>();
   options = input.required<readonly string[]>();
   selected = input<string | null>(null);
@@ -25,5 +27,13 @@ export class CategoryDropdown {
   choose(category: string | null): void {
     this.selectionChange.emit(category);
     this.isOpen.set(false);
+  }
+
+  /** Clicks anywhere outside close the menu, which is what users expect from a dropdown. */
+  @HostListener('document:click', ['$event.target'])
+  closeOnOutsideClick(target: EventTarget | null): void {
+    if (this.isOpen() && !this.host.nativeElement.contains(target as Node)) {
+      this.isOpen.set(false);
+    }
   }
 }
