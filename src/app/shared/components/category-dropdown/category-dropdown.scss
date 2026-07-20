@@ -21,6 +21,8 @@
   cursor: pointer;
 }
 
+/* Hover shares the highlighted background with the open state. */
+.dropdown__trigger:hover,
 .dropdown__trigger--open {
   background-color: rgb(217 217 217 / 12%);
 }
