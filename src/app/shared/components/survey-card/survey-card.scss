@@ -10,6 +10,11 @@
   color: var(--color-primary-purple);
 }
 
+/* Hover tint from the component sheet, same as the dropdown menu entries. */
+.card:hover {
+  background-color: #f4e9fb;
+}
+
 .card__category {
   margin: 0;
   font-size: 14px;
