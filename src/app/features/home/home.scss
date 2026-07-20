@@ -31,6 +31,7 @@
 .button {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   border: none;
   border-radius: var(--button-radius);
   padding: var(--button-padding-block) var(--button-padding-inline);
@@ -42,6 +43,30 @@
   line-height: 24px;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Hover adds the plus icon, the pressed state swaps it for a check. */
+.button:hover,
+.button:active {
+  background-color: var(--color-primary-orange);
+}
+
+.button__icon {
+  display: none;
+}
+
+.button:hover .button__icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: url("/add_circle.svg") no-repeat center / 20px 20px;
+}
+
+.button:active .button__icon {
+  width: 18px;
+  height: 16px;
+  background-image: url("/check.svg");
+  background-size: 18px 16px;
 }
 
 .hero__visual {
@@ -141,6 +166,10 @@
   font-weight: 400;
   font-size: 16px;
   cursor: pointer;
+}
+
+.tab:not(.tab--active):hover {
+  background-color: var(--color-secondary-orange);
 }
 
 .tab--active {
