@@ -1,12 +1,15 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Header } from '../../shared/components/header/header';
 import { SurveyCard } from '../../shared/components/survey-card/survey-card';
 import { SurveyListCard } from '../../shared/components/survey-list-card/survey-list-card';
 import { SurveyService } from '../../core/services/survey.service';
 import { Survey } from '../../core/models/survey';
+import { CATEGORIES } from '../../core/constants/categories';
 
 @Component({
   selector: 'app-home',
-  imports: [SurveyCard, SurveyListCard],
+  imports: [RouterLink, Header, SurveyCard, SurveyListCard],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
@@ -24,14 +27,7 @@ export class Home {
 
   activeTab = signal<'active' | 'past'>('active');
 
-  readonly categories = [
-    'Team Activities',
-    'Health & Wellness',
-    'Gaming & Entertainment',
-    'Education & Learning',
-    'Lifestyle & Preferences',
-    'Technology & Innovation',
-  ];
+  readonly categories = CATEGORIES;
 
   selectedCategory = signal<string | null>(null);
 

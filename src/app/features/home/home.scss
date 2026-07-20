@@ -29,6 +29,8 @@
 }
 
 .button {
+  display: inline-flex;
+  align-items: center;
   border: none;
   border-radius: var(--button-radius);
   padding: var(--button-padding-block) var(--button-padding-inline);
@@ -38,6 +40,7 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 24px;
+  text-decoration: none;
   cursor: pointer;
 }
 
