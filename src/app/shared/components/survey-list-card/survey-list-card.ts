@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { Survey } from '../../../core/models/survey';
-import { endsLabel } from '../../../core/utils/deadline';
+import { endsLabel, hasEnded } from '../../../core/utils/deadline';
 
 @Component({
   selector: 'app-survey-list-card',
@@ -12,4 +12,6 @@ export class SurveyListCard {
   survey = input.required<Survey>();
 
   endsLabel = computed(() => endsLabel(this.survey().end_date));
+
+  isEnded = computed(() => hasEnded(this.survey().end_date));
 }

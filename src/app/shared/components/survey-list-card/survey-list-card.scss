@@ -7,10 +7,16 @@
   padding: 12px 20px;
   border-radius: 5px 50px 5px 5px;
   background-color: rgb(217 217 217 / 8%);
+  cursor: pointer;
+}
+
+/* Finished surveys cannot be opened, so they must not look clickable. */
+.list-card--ended {
+  cursor: default;
 }
 
 /* Hover doubles the overlay opacity, matching the component sheet. */
-.list-card:hover {
+.list-card:not(.list-card--ended):hover {
   background-color: rgb(217 217 217 / 16%);
 }
 
