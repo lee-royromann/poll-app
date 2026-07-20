@@ -15,6 +15,11 @@
   background-color: #f4e9fb;
 }
 
+/* The badge steps up one level on the orange scale while hovering. */
+.card:hover .card__badge {
+  background-color: var(--color-primary-orange);
+}
+
 .card__category {
   margin: 0;
   font-size: 14px;
