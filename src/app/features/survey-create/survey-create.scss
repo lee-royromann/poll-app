@@ -75,19 +75,29 @@
   height: 14px;
 }
 
+/* 32 + 472 + 64 + 452 + 32 adds up to this width exactly. */
 .fields {
   display: flex;
   gap: 64px;
+  width: 1052px;
   border-radius: 5px 80px 5px 5px;
   padding: 40px 32px;
   background-color: rgb(142 112 153 / 16%);
 }
 
+/* Fixed column widths from the design, so the columns cannot squeeze each other. */
 .fields__col {
   display: flex;
-  flex: 1;
   flex-direction: column;
   gap: 8px;
+}
+
+.fields__col--left {
+  width: 472px;
+}
+
+.fields__col--right {
+  width: 452px;
 }
 
 /* Top aligned so the category dropdown lines up with the labels, as in the design. */
