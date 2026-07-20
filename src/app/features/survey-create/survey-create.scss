@@ -89,7 +89,7 @@
 .fields__col {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .fields__col--left {
@@ -125,8 +125,13 @@
 
 .field__row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
+}
+
+/* The multi line field keeps its delete icon at the top, as in the design. */
+.field__row--top {
+  align-items: flex-start;
 }
 
 .input {
