@@ -110,7 +110,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .field__label {
@@ -142,8 +142,9 @@
   font-size: 16px;
 }
 
+/* Narrower so this row ends flush with the survey name row above it. */
 .input--date {
-  width: 245px;
+  width: 223px;
 }
 
 .input--area {
