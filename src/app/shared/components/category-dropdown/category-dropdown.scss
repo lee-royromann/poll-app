@@ -27,15 +27,15 @@
   background-color: rgb(217 217 217 / 12%);
 }
 
-/* Drawn with borders because the handoff ships no arrow asset. */
+/* The 15x8 arrow sits centred in a 24x24 icon box, which is what spaces it from the edge. */
 .dropdown__arrow {
-  border-top: 8px solid currentcolor;
-  border-right: 7.5px solid transparent;
-  border-left: 7.5px solid transparent;
+  width: 24px;
+  height: 24px;
+  background: url("/arrow_white.svg") no-repeat center / 15px 8px;
 }
 
 .dropdown__arrow--active {
-  color: var(--color-primary-orange);
+  background-image: url("/arrow_orange.svg");
 }
 
 .dropdown__arrow--up {
