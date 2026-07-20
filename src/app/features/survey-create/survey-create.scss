@@ -100,11 +100,11 @@
   width: 452px;
 }
 
-/* Top aligned so the category dropdown lines up with the labels, as in the design.
-   The dropdown has its own left padding, which provides the visible spacing. */
+/* Top aligned so the category dropdown lines up with the labels, as in the design. */
 .fields__inline {
   display: flex;
   align-items: flex-start;
+  gap: 6px;
 }
 
 .field {
@@ -147,9 +147,9 @@
   font-size: 16px;
 }
 
-/* Narrower so this row ends flush with the survey name row above it. */
+/* Sized so this row ends flush with the survey name row above it. */
 .input--date {
-  width: 223px;
+  width: 217px;
 }
 
 .input--area {
