@@ -31,7 +31,6 @@
 .button {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   border: none;
   border-radius: var(--button-radius);
   padding: var(--button-padding-block) var(--button-padding-inline);
@@ -43,6 +42,7 @@
   line-height: 24px;
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 200ms ease;
 }
 
 /* Hover adds the plus icon, the pressed state swaps it for a check. */
@@ -51,20 +51,29 @@
   background-color: var(--color-primary-orange);
 }
 
+/* Collapsed to zero width so the button can grow smoothly on hover. */
 .button__icon {
-  display: none;
+  width: 0;
+  height: 24px;
+  margin-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  background: url("/add_circle.svg") no-repeat center / 20px 20px;
+  transition:
+    width 200ms ease,
+    margin-left 200ms ease,
+    opacity 200ms ease;
 }
 
-.button:hover .button__icon {
-  display: block;
+.button:hover .button__icon,
+.button:active .button__icon {
   width: 24px;
-  height: 24px;
-  background: url("/add_circle.svg") no-repeat center / 20px 20px;
+  margin-left: 10px;
+  opacity: 1;
 }
 
 .button:active .button__icon {
   width: 18px;
-  height: 16px;
   background-image: url("/check.svg");
   background-size: 18px 16px;
 }
