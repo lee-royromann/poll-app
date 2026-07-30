@@ -180,3 +180,121 @@
   background-image: url("/delete_hover.svg");
   background-size: 26px 26px;
 }
+
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 429px;
+
+  /* Sets the block apart from the top field group. */
+  margin-top: 48px;
+}
+
+.question__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.question__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 100%;
+}
+
+.question__answers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  cursor: pointer;
+}
+
+.checkbox__box {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  border: 1.5px solid #ffffff;
+  border-radius: 3px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.checkbox__box:checked {
+  background: #ffffff url("/check.svg") no-repeat center / 11px 10px;
+}
+
+.answer {
+  display: flex;
+  align-items: center;
+}
+
+.answer__letter {
+  width: 23px;
+  margin-right: 4px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 100%;
+}
+
+.answer__field {
+  width: 363px;
+  margin-right: 8px;
+}
+
+/* Underlined text link with a plus icon, no fill. */
+.tertiary {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  padding: 8px 12px 8px 0;
+  background: none;
+  color: #fefdff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 100%;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.add-next {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-top: 48px;
+  background-color: rgb(255 183 112 / 30%);
+  color: #fefdff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* The plus asset is dark for the orange home button, so it is whitened here. */
+.tertiary__icon,
+.add-next__icon {
+  width: 24px;
+  height: 24px;
+  background: url("/add_circle.svg") no-repeat center / 20px 20px;
+  filter: brightness(0) invert(1);
+}
