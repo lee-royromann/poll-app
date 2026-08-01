@@ -219,7 +219,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .checkbox {
@@ -265,10 +266,23 @@
   margin-right: 8px;
 }
 
+.add-answer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 429px;
+}
+
+/* No design value for this hint; muted white chosen to match the label style. */
+.add-answer__hint {
+  font-weight: 400;
+  font-size: 16px;
+  color: rgb(255 255 255 / 60%);
+}
+
 /* Underlined text link with a plus icon, no fill. */
 .tertiary {
   display: inline-flex;
-  align-self: flex-start;
   align-items: center;
   gap: 4px;
   border: none;

@@ -119,12 +119,17 @@
               </div>
             }
 
-            @if (question.answers.length < maxAnswers) {
-              <button class="tertiary" type="button" (click)="addAnswer(question)">
-                Add answer
-                <span class="tertiary__icon"></span>
-              </button>
-            }
+            <div class="add-answer">
+              @if (question.answers.length < maxAnswers) {
+                <button class="tertiary" type="button" (click)="addAnswer(question)">
+                  Add answer
+                  <span class="tertiary__icon"></span>
+                </button>
+              }
+              @if (question.answers.length >= 3) {
+                <span class="add-answer__hint">You can add up to 6 answer fields.</span>
+              }
+            </div>
           </div>
         }
 
