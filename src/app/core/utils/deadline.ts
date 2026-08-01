@@ -15,6 +15,15 @@ export function hasEnded(endDate: string | null): boolean {
   return endDate !== null && daysUntil(endDate) < 0;
 }
 
+/** Formats the stored YYYY-MM-DD date as DD.MM.YYYY for the detail header. */
+export function formatDate(date: string | null): string {
+  if (!date) {
+    return '';
+  }
+  const [year, month, day] = date.split('-');
+  return `${day}.${month}.${year}`;
+}
+
 export function endsLabel(endDate: string | null): string | null {
   if (endDate === null) {
     return null;

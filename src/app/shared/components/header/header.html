@@ -1,5 +1,7 @@
 <header class="header container">
   <a routerLink="/">
-    <img class="logo" src="logo_orange.svg" alt="Poll App" />
+    <img class="logo" [src]="logo()" alt="Poll App" />
   </a>
+
+  <ng-content />
 </header>

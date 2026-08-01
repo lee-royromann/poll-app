@@ -1,8 +1,48 @@
-<app-header />
+<app-header logo="logo_dark.svg">
+  <a class="create-link" routerLink="/create">Create survey</a>
+</app-header>
 
 @if (survey(); as survey) {
   <section class="detail container">
-    <h1 class="detail__title">{{ survey.title }}</h1>
-    <p class="detail__note">The full survey view is built in the next phase.</p>
+    <div class="panel">
+      <div class="form">
+        <span class="tag">Published</span>
+
+        <div class="meta">
+          <span>Ends on {{ endsOn() }}</span>
+          <span>Category: {{ survey.category }}</span>
+        </div>
+
+        <h1 class="title">{{ survey.title }}</h1>
+        <p class="description">{{ survey.description }}</p>
+
+        <div class="questions">
+          @for (question of survey.content.questions; track question.id; let qi = $index) {
+            <div class="question">
+              <h2 class="question__title">{{ qi + 1 }}. {{ question.text }}</h2>
+              @if (question.allowMultiple) {
+                <p class="question__hint">More than one answers are possible.</p>
+              }
+
+              @for (option of question.options; track option.id; let oi = $index) {
+                <label class="option">
+                  <input class="option__box" type="checkbox" />
+                  {{ letter(oi) }}. {{ option.label }}
+                </label>
+              }
+            </div>
+          }
+        </div>
+
+        <button class="complete" type="button">Complete survey</button>
+      </div>
+
+      <div class="results">
+        <h2 class="results__title">Survey results <span class="results__live">LIVE</span></h2>
+
+        <p class="results__empty">Results will be shown here after participants complete the survey.</p>
+        <p class="results__empty">There are no answears yet.</p>
+      </div>
+    </div>
   </section>
 }
