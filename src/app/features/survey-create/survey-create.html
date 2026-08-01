@@ -14,46 +14,67 @@
     </header>
 
     <div class="fields">
-      <div class="fields__col fields__col--left">
-        <div class="field">
-          <label class="field__label" for="survey-name">Survey name</label>
-          <div class="field__row">
-            <input
-              id="survey-name"
-              class="input"
-              [class.input--error]="submitted() && !title().trim()"
-              [ngModel]="title()"
-              (ngModelChange)="title.set($event)"
-            />
-            <button class="delete" type="button" (click)="title.set('')" aria-label="Clear survey name"></button>
-          </div>
-        </div>
-
-        <div class="fields__inline">
+      <div class="top-fields">
+        <div class="fields__col fields__col--left">
           <div class="field">
-            <label class="field__label" for="end-date">
-              Set end date <span class="field__optional">(optional)</span>
-            </label>
+            <label class="field__label" for="survey-name">Survey name</label>
             <div class="field__row">
               <input
-                id="end-date"
-                class="input input--date"
-                type="date"
-                [ngModel]="endDate()"
-                (ngModelChange)="endDate.set($event)"
+                id="survey-name"
+                class="input"
+                [class.input--error]="submitted() && !title().trim()"
+                [ngModel]="title()"
+                (ngModelChange)="title.set($event)"
               />
-              <button class="delete" type="button" (click)="endDate.set('')" aria-label="Clear end date"></button>
+              <button class="delete" type="button" (click)="title.set('')" aria-label="Clear survey name"></button>
             </div>
           </div>
 
-          <app-category-dropdown
-            placeholder="Choose category"
-            [options]="categories"
-            [selected]="category()"
-            (selectionChange)="category.set($event)"
-          />
+          <div class="fields__inline">
+            <div class="field">
+              <label class="field__label" for="end-date">
+                Set end date <span class="field__optional">(optional)</span>
+              </label>
+              <div class="field__row">
+                <input
+                  id="end-date"
+                  class="input input--date"
+                  type="date"
+                  [ngModel]="endDate()"
+                  (ngModelChange)="endDate.set($event)"
+                />
+                <button class="delete" type="button" (click)="endDate.set('')" aria-label="Clear end date"></button>
+              </div>
+            </div>
+
+            <app-category-dropdown
+              placeholder="Choose category"
+              [options]="categories"
+              [selected]="category()"
+              (selectionChange)="category.set($event)"
+            />
+          </div>
         </div>
 
+        <div class="fields__col fields__col--right">
+          <div class="field">
+            <label class="field__label" for="description">
+              Describing text <span class="field__optional">(optional)</span>
+            </label>
+            <div class="field__row field__row--top">
+              <textarea
+                id="description"
+                class="input input--area"
+                [ngModel]="description()"
+                (ngModelChange)="description.set($event)"
+              ></textarea>
+              <button class="delete" type="button" (click)="description.set('')" aria-label="Clear description"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="questions">
         @for (question of questions(); track question.id; let qi = $index) {
           <div class="question">
             <div class="question__head">
@@ -106,23 +127,6 @@
             }
           </div>
         }
-      </div>
-
-      <div class="fields__col fields__col--right">
-        <div class="field">
-          <label class="field__label" for="description">
-            Describing text <span class="field__optional">(optional)</span>
-          </label>
-          <div class="field__row field__row--top">
-            <textarea
-              id="description"
-              class="input input--area"
-              [ngModel]="description()"
-              (ngModelChange)="description.set($event)"
-            ></textarea>
-            <button class="delete" type="button" (click)="description.set('')" aria-label="Clear description"></button>
-          </div>
-        </div>
 
         <button class="add-next" type="button" (click)="addQuestion()">
           Add next question
