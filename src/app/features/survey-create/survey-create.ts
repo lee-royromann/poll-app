@@ -35,17 +35,20 @@ export class SurveyCreate {
   published = signal(false);
 
   private createdId: string | null = null;
+  private saving = false;
 
   /** Turns a zero-based index into the answer letter A, B, C … */
   letter(index: number): string {
     return String.fromCharCode(65 + index);
   }
 
+  /** Guarded so a second click cannot save the same survey twice. */
   async publish(): Promise<void> {
     this.submitted.set(true);
-    if (!this.isValid()) {
+    if (this.saving || this.published() || !this.isValid()) {
       return;
     }
+    this.saving = true;
     const survey = await this.surveyService.create(this.toNewSurvey());
     this.createdId = survey.id;
     this.published.set(true);

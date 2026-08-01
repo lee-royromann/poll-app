@@ -135,7 +135,7 @@
       </div>
     </div>
 
-    <button class="publish" type="button" (click)="publish()">Publish</button>
+    <button class="publish" type="button" [disabled]="published()" (click)="publish()">Publish</button>
   </div>
 </section>
 

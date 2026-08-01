@@ -377,3 +377,8 @@
     opacity: 1;
   }
 }
+
+.publish:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
