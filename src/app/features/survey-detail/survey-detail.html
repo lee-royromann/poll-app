@@ -4,34 +4,40 @@
 
 @if (survey(); as survey) {
   <section class="detail container">
-    <div class="panel">
-      <div class="form">
-        <span class="tag">Published</span>
+    <div class="layout">
+      <div class="panel">
+        <div class="form">
+          <span class="tag">Published</span>
 
-        <div class="meta">
-          <span>Ends on {{ endsOn() }}</span>
-          <span>Category: {{ survey.category }}</span>
-        </div>
+          <div class="meta">
+            <span>Ends on {{ endsOn() }}</span>
+            <span>Category: {{ survey.category }}</span>
+          </div>
 
-        <h1 class="title">{{ survey.title }}</h1>
-        <p class="description">{{ survey.description }}</p>
+          <h1 class="title">{{ survey.title }}</h1>
+          <p class="description">{{ survey.description }}</p>
 
-        <div class="questions">
-          @for (question of survey.content.questions; track question.id; let qi = $index) {
-            <div class="question">
-              <h2 class="question__title">{{ qi + 1 }}. {{ question.text }}</h2>
-              @if (question.allowMultiple) {
-                <p class="question__hint">More than one answers are possible.</p>
-              }
+          <div class="questions">
+            @for (question of survey.content.questions; track question.id; let qi = $index) {
+              <div class="question">
+                <h2 class="question__title">{{ qi + 1 }}. {{ question.text }}</h2>
+                @if (question.allowMultiple) {
+                  <p class="question__hint">More than one answers are possible.</p>
+                }
 
-              @for (option of question.options; track option.id; let oi = $index) {
-                <label class="option">
-                  <input class="option__box" type="checkbox" />
-                  {{ letter(oi) }}. {{ option.label }}
-                </label>
-              }
-            </div>
-          }
+                <div class="options">
+                  @for (option of question.options; track option.id; let oi = $index) {
+                    <label class="option">
+                      <input class="option__box" type="checkbox" />
+                      <span class="option__text">
+                        <span class="option__letter">{{ letter(oi) }}.</span> {{ option.label }}
+                      </span>
+                    </label>
+                  }
+                </div>
+              </div>
+            }
+          </div>
         </div>
 
         <button class="complete" type="button">Complete survey</button>
@@ -40,8 +46,8 @@
       <div class="results">
         <h2 class="results__title">Survey results <span class="results__live">LIVE</span></h2>
 
-        <p class="results__empty">Results will be shown here after participants complete the survey.</p>
-        <p class="results__empty">There are no answears yet.</p>
+        <p class="results__intro">Results will be shown here after participants complete the survey.</p>
+        <p class="results__none">There are no answears yet.</p>
       </div>
     </div>
   </section>
