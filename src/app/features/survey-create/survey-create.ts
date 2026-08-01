@@ -25,9 +25,29 @@ export class SurveyCreate {
 
   questions = signal<QuestionDraft[]>([emptyQuestion(1)]);
 
+  /** Set once the user tries to publish, so errors only appear after that attempt. */
+  submitted = signal(false);
+
   /** Turns a zero-based index into the answer letter A, B, C … */
   letter(index: number): string {
     return String.fromCharCode(65 + index);
+  }
+
+  publish(): void {
+    this.submitted.set(true);
+    if (!this.isValid()) {
+      return;
+    }
+    // Saving to Supabase and the confirmation overlay follow in the next step.
+  }
+
+  /** Required: title, every question text and every answer option (see requirements.md). */
+  isValid(): boolean {
+    return this.title().trim() !== '' && this.questions().every((q) => this.isQuestionValid(q));
+  }
+
+  private isQuestionValid(question: QuestionDraft): boolean {
+    return question.text.trim() !== '' && question.answers.every((a) => a.text.trim() !== '');
   }
 
   addQuestion(): void {

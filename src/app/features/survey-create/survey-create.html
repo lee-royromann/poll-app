@@ -21,6 +21,7 @@
             <input
               id="survey-name"
               class="input"
+              [class.input--error]="submitted() && !title().trim()"
               [ngModel]="title()"
               (ngModelChange)="title.set($event)"
             />
@@ -68,6 +69,7 @@
             <input
               class="input"
               placeholder="Which date would work best for you?"
+              [class.input--error]="submitted() && !question.text.trim()"
               [(ngModel)]="question.text"
             />
 
@@ -82,7 +84,11 @@
             @for (answer of question.answers; track answer.id; let ai = $index) {
               <div class="answer">
                 <span class="answer__letter">{{ letter(ai) }}.</span>
-                <input class="input answer__field" [(ngModel)]="answer.text" />
+                <input
+                  class="input answer__field"
+                  [class.input--error]="submitted() && !answer.text.trim()"
+                  [(ngModel)]="answer.text"
+                />
                 <button
                   class="delete"
                   type="button"
@@ -124,5 +130,7 @@
         </button>
       </div>
     </div>
+
+    <button class="publish" type="button" (click)="publish()">Publish</button>
   </div>
 </section>
