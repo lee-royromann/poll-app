@@ -57,7 +57,12 @@
           <div class="question">
             <div class="question__head">
               <h3 class="question__title">{{ qi + 1 }}. Question</h3>
-              <button class="delete" type="button" aria-label="Delete question"></button>
+              <button
+                class="delete"
+                type="button"
+                aria-label="Delete question"
+                (click)="removeQuestion(question, qi)"
+              ></button>
             </div>
 
             <input
@@ -78,14 +83,21 @@
               <div class="answer">
                 <span class="answer__letter">{{ letter(ai) }}.</span>
                 <input class="input answer__field" [(ngModel)]="answer.text" />
-                <button class="delete" type="button" aria-label="Delete answer"></button>
+                <button
+                  class="delete"
+                  type="button"
+                  aria-label="Delete answer"
+                  (click)="removeAnswer(question, answer)"
+                ></button>
               </div>
             }
 
-            <button class="tertiary" type="button">
-              Add answer
-              <span class="tertiary__icon"></span>
-            </button>
+            @if (question.answers.length < maxAnswers) {
+              <button class="tertiary" type="button" (click)="addAnswer(question)">
+                Add answer
+                <span class="tertiary__icon"></span>
+              </button>
+            }
           </div>
         }
       </div>
@@ -106,7 +118,7 @@
           </div>
         </div>
 
-        <button class="add-next" type="button">
+        <button class="add-next" type="button" (click)="addQuestion()">
           Add next question
           <span class="add-next__icon"></span>
         </button>
