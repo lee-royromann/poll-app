@@ -1,8 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CategoryDropdown } from '../../shared/components/category-dropdown/category-dropdown';
 import { CATEGORIES } from '../../core/constants/categories';
+import { SurveyService } from '../../core/services/survey.service';
+import { NewSurvey, Question } from '../../core/models/survey';
 import { AnswerDraft, emptyQuestion, QuestionDraft } from './survey-draft';
 
 const MAX_ANSWERS = 6;
@@ -15,6 +17,9 @@ const MIN_ANSWERS = 2;
   styleUrl: './survey-create.scss',
 })
 export class SurveyCreate {
+  private surveyService = inject(SurveyService);
+  private router = inject(Router);
+
   readonly categories = CATEGORIES;
   readonly maxAnswers = MAX_ANSWERS;
 
@@ -27,27 +32,34 @@ export class SurveyCreate {
 
   /** Set once the user tries to publish, so errors only appear after that attempt. */
   submitted = signal(false);
+  published = signal(false);
+
+  private createdId: string | null = null;
 
   /** Turns a zero-based index into the answer letter A, B, C … */
   letter(index: number): string {
     return String.fromCharCode(65 + index);
   }
 
-  publish(): void {
+  async publish(): Promise<void> {
     this.submitted.set(true);
     if (!this.isValid()) {
       return;
     }
-    // Saving to Supabase and the confirmation overlay follow in the next step.
+    const survey = await this.surveyService.create(this.toNewSurvey());
+    this.createdId = survey.id;
+    this.published.set(true);
+  }
+
+  /** Closing the confirmation takes the user to the new survey, as required. */
+  closeOverlay(): void {
+    this.published.set(false);
+    this.router.navigate(['/survey', this.createdId]);
   }
 
   /** Required: title, every question text and every answer option (see requirements.md). */
   isValid(): boolean {
     return this.title().trim() !== '' && this.questions().every((q) => this.isQuestionValid(q));
-  }
-
-  private isQuestionValid(question: QuestionDraft): boolean {
-    return question.text.trim() !== '' && question.answers.every((a) => a.text.trim() !== '');
   }
 
   addQuestion(): void {
@@ -79,6 +91,10 @@ export class SurveyCreate {
     this.questions.set([...this.questions()]);
   }
 
+  private isQuestionValid(question: QuestionDraft): boolean {
+    return question.text.trim() !== '' && question.answers.every((a) => a.text.trim() !== '');
+  }
+
   private clearQuestion(question: QuestionDraft): void {
     question.text = '';
     question.answers.forEach((a) => (a.text = ''));
@@ -87,5 +103,21 @@ export class SurveyCreate {
 
   private nextId(items: { id: number }[]): number {
     return Math.max(0, ...items.map((i) => i.id)) + 1;
+  }
+
+  private toNewSurvey(): NewSurvey {
+    return {
+      title: this.title().trim(),
+      description: this.description().trim() || null,
+      category: this.category(),
+      end_date: this.endDate() || null,
+      content: { questions: this.questions().map((q, i) => this.toQuestion(q, i)) },
+    };
+  }
+
+  private toQuestion(question: QuestionDraft, index: number): Question {
+    const id = `q${index + 1}`;
+    const options = question.answers.map((a, j) => ({ id: `${id}o${j + 1}`, label: a.text.trim() }));
+    return { id, text: question.text.trim(), allowMultiple: question.allowMultiple, options };
   }
 }

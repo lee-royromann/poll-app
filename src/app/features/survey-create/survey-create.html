@@ -134,3 +134,10 @@
     <button class="publish" type="button" (click)="publish()">Publish</button>
   </div>
 </section>
+
+@if (published()) {
+  <div class="overlay">
+    <p class="overlay__text">Your survey is now published</p>
+    <button class="overlay__close" type="button" (click)="closeOverlay()" aria-label="Close"></button>
+  </div>
+}
