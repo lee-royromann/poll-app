@@ -1,10 +1,11 @@
 import { Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Survey } from '../../../core/models/survey';
 import { endsLabel, hasEnded } from '../../../core/utils/deadline';
 
 @Component({
   selector: 'app-survey-list-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './survey-list-card.html',
   styleUrl: './survey-list-card.scss',
 })

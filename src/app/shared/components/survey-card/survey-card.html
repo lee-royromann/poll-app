@@ -1,4 +1,4 @@
-<article class="card">
+<article class="card" [routerLink]="['/survey', survey().id]">
   <p class="card__category">{{ survey().category }}</p>
   <h4 class="card__title">{{ survey().title }}</h4>
 

@@ -1,4 +1,8 @@
-<article class="list-card" [class.list-card--ended]="isEnded()">
+<article
+  class="list-card"
+  [class.list-card--ended]="isEnded()"
+  [routerLink]="isEnded() ? null : ['/survey', survey().id]"
+>
   <p class="list-card__category">{{ survey().category }}</p>
   <h4 class="list-card__title">{{ survey().title }}</h4>
 
