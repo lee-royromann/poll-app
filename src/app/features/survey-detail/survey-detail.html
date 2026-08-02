@@ -28,7 +28,13 @@
                 <div class="options">
                   @for (option of question.options; track option.id; let oi = $index) {
                     <label class="option">
-                      <input class="option__box" type="checkbox" />
+                      <input
+                        class="option__box"
+                        type="checkbox"
+                        [checked]="isSelected(question.id, option.id)"
+                        [disabled]="completed()"
+                        (change)="toggleOption(question, option.id)"
+                      />
                       <span class="option__text">
                         <span class="option__letter">{{ letter(oi) }}.</span> {{ option.label }}
                       </span>
@@ -40,14 +46,37 @@
           </div>
         </div>
 
-        <button class="complete" type="button">Complete survey</button>
+        <button class="complete" type="button" [disabled]="completed()" (click)="complete()">
+          Complete survey
+        </button>
       </div>
 
       <div class="results">
         <h2 class="results__title">Survey results <span class="results__live">LIVE</span></h2>
 
-        <p class="results__intro">Results will be shown here after participants complete the survey.</p>
-        <p class="results__none">There are no answears yet.</p>
+        @if (hasVotes()) {
+          <div class="results__list">
+            @for (question of survey.content.questions; track question.id; let qi = $index) {
+              <div class="result">
+                <h3 class="result__title">{{ qi + 1 }}. {{ question.text }}</h3>
+                <div class="result__bars">
+                  @for (option of question.options; track option.id; let oi = $index) {
+                    <div class="bar">
+                      <span class="bar__letter">{{ letter(oi) }}</span>
+                      <div class="bar__track">
+                        <div class="bar__fill" [style.width.%]="percent(question, option.id)"></div>
+                      </div>
+                      <span class="bar__percent">{{ percent(question, option.id) }}%</span>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="results__intro">Results will be shown here after participants complete the survey.</p>
+          <p class="results__none">There are no answears yet.</p>
+        }
       </div>
     </div>
   </section>
