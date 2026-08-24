@@ -1,3 +1,5 @@
+@use 'mixins';
+
 .create {
   min-height: 100vh;
   padding: 72px 0;
@@ -17,19 +19,27 @@
   border-radius: 5px 100px 5px 5px;
   background-color: var(--color-primary-purple);
   color: #fefdff;
-}
 
-.panel__head {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 
-/* Cancel sits on the title line, not next to the draft tag. */
-.panel__row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  /* Cancel sits on the title line, not next to the draft tag. */
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 56px;
+    line-height: 100%;
+    color: #ee9236;
+  }
 }
 
 .tag {
@@ -44,36 +54,22 @@
   line-height: 100%;
 }
 
-.panel__title {
-  font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: 56px;
-  line-height: 100%;
-  color: #ee9236;
-}
-
 .cancel {
-  display: inline-flex;
-  align-items: center;
+  @include mixins.soft-button;
   gap: 10px;
   height: 40px;
-  border-radius: 10px;
-  padding: 8px 12px;
-  background-color: rgb(255 183 112 / 30%);
   color: #fefdff;
-  font-weight: 700;
-  font-size: 16px;
   text-decoration: none;
-}
 
-/* Secondary button hover doubles the orange opacity, matching the delete icon asset. */
-.cancel:hover {
-  background-color: rgb(255 183 112 / 60%);
-}
+  /* Secondary button hover doubles the orange opacity, matching the delete icon asset. */
+  &:hover {
+    background-color: rgb(255 183 112 / 60%);
+  }
 
-.cancel__icon {
-  width: 14px;
-  height: 14px;
+  &__icon {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 /* 32 + 472 + 64 + 452 + 32 adds up to this width exactly. */
@@ -85,6 +81,28 @@
   border-radius: 5px 80px 5px 5px;
   padding: 40px 32px;
   background-color: rgb(142 112 153 / 16%);
+
+  /* Fixed column widths from the design, so the columns cannot squeeze each other. */
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &--left {
+      width: 472px;
+    }
+
+    &--right {
+      width: 452px;
+    }
+  }
+
+  /* Top aligned so the category dropdown lines up with the labels, as in the design. */
+  &__inline {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
 }
 
 .top-fields {
@@ -100,53 +118,31 @@
   row-gap: 48px;
 }
 
-/* Fixed column widths from the design, so the columns cannot squeeze each other. */
-.fields__col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.fields__col--left {
-  width: 472px;
-}
-
-.fields__col--right {
-  width: 452px;
-}
-
-/* Top aligned so the category dropdown lines up with the labels, as in the design. */
-.fields__inline {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-}
-
 .field {
   display: flex;
   flex-direction: column;
   gap: 6px;
-}
 
-.field__label {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 100%;
-}
+  &__label {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+  }
 
-.field__optional {
-  font-weight: 400;
-}
+  &__optional {
+    font-weight: 400;
+  }
 
-.field__row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-/* The multi line field keeps its delete icon at the top, as in the design. */
-.field__row--top {
-  align-items: flex-start;
+    /* The multi line field keeps its delete icon at the top, as in the design. */
+    &--top {
+      align-items: flex-start;
+    }
+  }
 }
 
 .input {
@@ -160,23 +156,28 @@
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 16px;
-}
 
-/* Sized so this row ends flush with the survey name row above it. */
-.input--date {
-  width: 217px;
-}
+  /* Sized so this row ends flush with the survey name row above it. */
+  &--date {
+    width: 217px;
+  }
 
-.input--area {
-  width: 418px;
-  height: 108px;
-  resize: none;
-}
+  &--area {
+    width: 418px;
+    height: 108px;
+    resize: none;
+  }
 
-/* Focused state of the input field component in the design. */
-.input:focus {
-  outline: none;
-  background-color: var(--color-overlay);
+  /* No error state exists in the design, so this red is a deliberate addition. */
+  &--error {
+    border: 1.5px solid #e5484d;
+  }
+
+  /* Focused state of the input field component in the design. */
+  &:focus {
+    outline: none;
+    background-color: var(--color-overlay);
+  }
 }
 
 /* The hover asset already contains the 26x26 frame, so only the size changes. */
@@ -189,11 +190,11 @@
   padding: 0;
   background: url("/delete.svg") no-repeat center / 18px 20px;
   cursor: pointer;
-}
 
-.delete:hover {
-  background-image: url("/delete_hover.svg");
-  background-size: 26px 26px;
+  &:hover {
+    background-image: url("/delete_hover.svg");
+    background-size: 26px 26px;
+  }
 }
 
 .question {
@@ -201,27 +202,27 @@
   flex-direction: column;
   gap: 8px;
   width: 429px;
-}
 
-.question__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.question__title {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 100%;
-}
+  &__title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+  }
 
-.question__answers {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  &__answers {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
 }
 
 .checkbox {
@@ -232,39 +233,28 @@
   font-size: 12px;
   line-height: 100%;
   cursor: pointer;
-}
 
-.checkbox__box {
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  margin: 0;
-  border: 1.5px solid #ffffff;
-  border-radius: 3px;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.checkbox__box:checked {
-  background: #ffffff url("/check.svg") no-repeat center / 11px 10px;
+  &__box {
+    @include mixins.custom-check(#ffffff, #ffffff, 11px 10px);
+  }
 }
 
 .answer {
   display: flex;
   align-items: center;
-}
 
-.answer__letter {
-  width: 23px;
-  margin-right: 4px;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 100%;
-}
+  &__letter {
+    width: 23px;
+    margin-right: 4px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+  }
 
-.answer__field {
-  width: 363px;
-  margin-right: 8px;
+  &__field {
+    width: 363px;
+    margin-right: 8px;
+  }
 }
 
 .add-answer {
@@ -272,13 +262,13 @@
   align-items: center;
   justify-content: space-between;
   width: 429px;
-}
 
-/* No design value for this hint; muted white chosen to match the label style. */
-.add-answer__hint {
-  font-weight: 400;
-  font-size: 16px;
-  color: rgb(255 255 255 / 60%);
+  /* No design value for this hint; muted white chosen to match the label style. */
+  &__hint {
+    font-weight: 400;
+    font-size: 16px;
+    color: rgb(255 255 255 / 60%);
+  }
 }
 
 /* Underlined text link with a plus icon, no fill. */
@@ -299,20 +289,11 @@
 }
 
 .add-next {
-  display: inline-flex;
+  @include mixins.soft-button;
   justify-self: start;
-  align-items: center;
   gap: 10px;
   height: 40px;
-  border: none;
-  border-radius: 10px;
-  padding: 8px 12px;
-  background-color: rgb(255 183 112 / 30%);
   color: #fefdff;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
 }
 
 /* The plus asset is dark for the orange home button, so it is whitened here. */
@@ -322,11 +303,6 @@
   height: 24px;
   background: url("/add_circle.svg") no-repeat center / 20px 20px;
   filter: brightness(0) invert(1);
-}
-
-/* No error state exists in the design, so this red is a deliberate addition. */
-.input--error {
-  border: 1.5px solid #e5484d;
 }
 
 .publish {
@@ -341,9 +317,13 @@
   font-weight: 700;
   font-size: 18px;
   cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
 }
 
-/* Small confirmation panel that slides in from the right, as in the design. */
 /* Dim the whole page behind the published toast. */
 .published-backdrop {
   position: fixed;
@@ -366,28 +346,28 @@
   padding: 0 26px;
   background-color: var(--color-overlay);
   animation: overlay-in 300ms ease-out;
-}
 
-.overlay__text {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 100%;
-  letter-spacing: 0.02em;
-  color: var(--color-primary-purple);
-}
+  &__text {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0.02em;
+    color: var(--color-primary-purple);
+  }
 
-/* Recoloured via mask because close.svg ships white, but the overlay needs it dark. */
-.overlay__close {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  border: none;
-  padding: 0;
-  background-color: var(--color-primary-purple);
-  mask: url("/close.svg") no-repeat center / 14px 14px;
-  cursor: pointer;
+  /* Recoloured via mask because close.svg ships white, but the overlay needs it dark. */
+  &__close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: none;
+    padding: 0;
+    background-color: var(--color-primary-purple);
+    mask: url("/close.svg") no-repeat center / 14px 14px;
+    cursor: pointer;
+  }
 }
 
 @keyframes overlay-in {
@@ -400,9 +380,4 @@
     transform: translateX(0);
     opacity: 1;
   }
-}
-
-.publish:disabled {
-  cursor: default;
-  opacity: 0.6;
 }
