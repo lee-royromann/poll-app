@@ -37,6 +37,17 @@ export class SurveyCreate {
   private createdId: string | null = null;
   private saving = false;
 
+  /** Today in local YYYY-MM-DD; the earliest end date the survey may carry. */
+  get today(): string {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+
+  /** Optional, but if set it must not lie in the past. */
+  isEndDateValid(): boolean {
+    return this.endDate() === '' || this.endDate() >= this.today;
+  }
+
   /** Turns a zero-based index into the answer letter A, B, C … */
   letter(index: number): string {
     return String.fromCharCode(65 + index);
@@ -62,7 +73,11 @@ export class SurveyCreate {
 
   /** Required: title, every question text and every answer option (see requirements.md). */
   isValid(): boolean {
-    return this.title().trim() !== '' && this.questions().every((q) => this.isQuestionValid(q));
+    return (
+      this.title().trim() !== '' &&
+      this.isEndDateValid() &&
+      this.questions().every((q) => this.isQuestionValid(q))
+    );
   }
 
   addQuestion(): void {

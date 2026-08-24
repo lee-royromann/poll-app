@@ -41,6 +41,8 @@
                   id="end-date"
                   class="input input--date"
                   type="date"
+                  [min]="today"
+                  [class.input--error]="submitted() && !isEndDateValid()"
                   [ngModel]="endDate()"
                   (ngModelChange)="endDate.set($event)"
                 />
