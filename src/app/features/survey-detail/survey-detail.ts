@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Header } from '../../shared/components/header/header';
 import { SurveyService } from '../../core/services/survey.service';
 import { VotesService } from '../../core/services/votes.service';
@@ -8,7 +8,7 @@ import { formatDate } from '../../core/utils/deadline';
 
 @Component({
   selector: 'app-survey-detail',
-  imports: [Header],
+  imports: [Header, RouterLink],
   templateUrl: './survey-detail.html',
   styleUrl: './survey-detail.scss',
 })
