@@ -8,14 +8,49 @@
 .create-link {
   display: inline-flex;
   align-items: center;
-  height: 48px;
-  border-radius: 10px;
-  padding: 12px 16px;
+  border-radius: var(--button-radius);
+  padding: var(--button-padding-block) var(--button-padding-inline);
   background-color: var(--color-secondary-orange);
   color: #221227;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 18px;
+  line-height: 24px;
   text-decoration: none;
+  transition: background-color 200ms ease;
+}
+
+/* Hover adds the plus icon, the pressed state swaps it for a check. */
+.create-link:hover,
+.create-link:active {
+  background-color: var(--color-primary-orange);
+}
+
+/* Collapsed to zero width so the button can grow smoothly on hover. */
+.create-link__icon {
+  width: 0;
+  height: 24px;
+  margin-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  background: url("/add_circle.svg") no-repeat center / 20px 20px;
+  transition:
+    width 200ms ease,
+    margin-left 200ms ease,
+    opacity 200ms ease;
+}
+
+.create-link:hover .create-link__icon,
+.create-link:active .create-link__icon {
+  width: 24px;
+  margin-left: 10px;
+  opacity: 1;
+}
+
+.create-link:active .create-link__icon {
+  width: 18px;
+  background-image: url("/check.svg");
+  background-size: 18px 16px;
 }
 
 .detail {
