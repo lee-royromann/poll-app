@@ -20,6 +20,9 @@ export class SurveyDetail {
   survey = signal<Survey | null>(null);
   completed = signal(false);
 
+  /** Guards against a double submit while votes are being saved. */
+  private saving = false;
+
   private selected = signal<Record<string, Set<string>>>({});
   private storedResults = signal<Record<string, number>>({});
 
@@ -65,13 +68,16 @@ export class SurveyDetail {
     return total === 0 ? 0 : Math.round((this.optionCount(question, optionId) / total) * 100);
   }
 
+  /** Keep the live preview until the fresh totals arrive, so the bars never dip. */
   async complete(): Promise<void> {
-    if (this.completed()) {
+    if (this.completed() || this.saving) {
       return;
     }
-    this.completed.set(true);
+    this.saving = true;
     await this.saveVotes();
     this.storedResults.set(await this.votesService.getResults(this.survey()!.id));
+    this.completed.set(true);
+    this.saving = false;
   }
 
   constructor() {
