@@ -186,6 +186,30 @@
   background-color: var(--color-primary-orange);
 }
 
+/* Show three rows (six cards); the rest scrolls inside this box.
+   The negative margin + padding keeps a gutter for the scrollbar so the cards stay 513px. */
+.list__scroll {
+  max-height: 413px;
+  overflow-y: auto;
+  margin-right: -24px;
+  padding-right: 24px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-orange) transparent;
+}
+
+.list__scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list__scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.list__scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--color-primary-orange);
+}
+
 .list__grid {
   display: grid;
   grid-template-columns: repeat(2, 513px);
