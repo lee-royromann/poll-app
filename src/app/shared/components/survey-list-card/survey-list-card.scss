@@ -1,9 +1,15 @@
-/* Height follows the content as in the design; the gap is what makes it 127px tall. */
+/* The grid stretches this host to the row height; the card then fills it (equal heights). */
+:host {
+  display: flex;
+}
+
+/* min-height keeps cards without a category or deadline as tall as full ones (127px). */
 .list-card {
   display: flex;
   flex-direction: column;
   gap: 22.5px;
   width: 513px;
+  min-height: 127px;
   padding: 12px 20px;
   border-radius: 5px 50px 5px 5px;
   background-color: rgb(217 217 217 / 8%);
@@ -40,6 +46,7 @@
 /* Widened to the longest label so the badges do not jump in width between cards. */
 .list-card__badge {
   align-self: flex-end;
+  margin-top: auto;
   min-width: 102px;
   text-align: center;
   line-height: 100%;
