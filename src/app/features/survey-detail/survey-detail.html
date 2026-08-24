@@ -35,7 +35,6 @@
                         class="option__box"
                         type="checkbox"
                         [checked]="isSelected(question.id, option.id)"
-                        [disabled]="completed()"
                         (change)="toggleOption(question, option.id)"
                       />
                       <span class="option__text">
@@ -49,7 +48,7 @@
           </div>
         </div>
 
-        <button class="complete" type="button" [disabled]="completed()" (click)="complete()">
+        <button class="complete" type="button" [disabled]="!canComplete()" (click)="complete()">
           Complete survey
         </button>
       </div>

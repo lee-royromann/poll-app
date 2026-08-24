@@ -201,6 +201,11 @@
   background-color: var(--color-secondary-orange);
 }
 
+.complete:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .results {
   width: 315px;
 }
@@ -230,11 +235,6 @@
   font-size: 18px;
   line-height: 100%;
   text-align: center;
-}
-
-.complete:disabled,
-.option__box:disabled {
-  cursor: default;
 }
 
 .results__list {

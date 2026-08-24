@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Header } from '../../shared/components/header/header';
 import { SurveyService } from '../../core/services/survey.service';
 import { VotesService } from '../../core/services/votes.service';
@@ -14,11 +14,11 @@ import { formatDate } from '../../core/utils/deadline';
 })
 export class SurveyDetail {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private surveyService = inject(SurveyService);
   private votesService = inject(VotesService);
 
   survey = signal<Survey | null>(null);
-  completed = signal(false);
 
   /** Guards against a double submit while votes are being saved. */
   private saving = false;
@@ -32,6 +32,12 @@ export class SurveyDetail {
     (this.survey()?.content.questions ?? []).some((q) => this.questionTotal(q) > 0),
   );
 
+  /** Every question needs at least one answer before the survey can be completed. */
+  canComplete = computed(() => {
+    const questions = this.survey()?.content.questions ?? [];
+    return questions.length > 0 && questions.every((q) => (this.selected()[q.id]?.size ?? 0) > 0);
+  });
+
   letter(index: number): string {
     return String.fromCharCode(65 + index);
   }
@@ -40,22 +46,25 @@ export class SurveyDetail {
     return this.selected()[questionId]?.has(optionId) ?? false;
   }
 
-  /** Single choice questions keep one option, multiple choice ones toggle each. */
+  /** Toggling the active option clears it, so a single choice can be unset again. */
   toggleOption(question: Question, optionId: string): void {
-    if (this.completed()) {
-      return;
-    }
     const map = { ...this.selected() };
-    const set = new Set(question.allowMultiple ? (map[question.id] ?? []) : []);
-    set.has(optionId) ? set.delete(optionId) : set.add(optionId);
-    map[question.id] = set;
+    const current = map[question.id];
+    const isOn = current?.has(optionId) ?? false;
+    if (question.allowMultiple) {
+      const next = new Set(current);
+      isOn ? next.delete(optionId) : next.add(optionId);
+      map[question.id] = next;
+    } else {
+      map[question.id] = isOn ? new Set() : new Set([optionId]);
+    }
     this.selected.set(map);
   }
 
   /** Stored votes plus the live preview of the not-yet-saved selection. */
   optionCount(question: Question, optionId: string): number {
     const stored = this.storedResults()[optionId] ?? 0;
-    const preview = !this.completed() && this.isSelected(question.id, optionId) ? 1 : 0;
+    const preview = this.isSelected(question.id, optionId) ? 1 : 0;
     return stored + preview;
   }
 
@@ -68,16 +77,14 @@ export class SurveyDetail {
     return total === 0 ? 0 : Math.round((this.optionCount(question, optionId) / total) * 100);
   }
 
-  /** Keep the live preview until the fresh totals arrive, so the bars never dip. */
+  /** Persist the votes, then return to the home page like the Figma flow. */
   async complete(): Promise<void> {
-    if (this.completed() || this.saving) {
+    if (this.saving || !this.canComplete()) {
       return;
     }
     this.saving = true;
     await this.saveVotes();
-    this.storedResults.set(await this.votesService.getResults(this.survey()!.id));
-    this.completed.set(true);
-    this.saving = false;
+    await this.router.navigate(['/']);
   }
 
   constructor() {
