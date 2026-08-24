@@ -1,0 +1,100 @@
+// Shared style patterns that repeat across components.
+// Kept as mixins (not @extend) so each call site stays flat and self-contained.
+
+// The plus icon that grows in on hover and turns into a check when pressed.
+// Expects the icon element to be named "<block>__icon".
+@mixin grow-plus-icon {
+  &__icon {
+    width: 0;
+    height: 24px;
+    margin-left: 0;
+    overflow: hidden;
+    opacity: 0;
+    background: url("/add_circle.svg") no-repeat center / 20px 20px;
+    transition:
+      width 200ms ease,
+      margin-left 200ms ease,
+      opacity 200ms ease;
+  }
+
+  &:hover &__icon,
+  &:active &__icon {
+    width: 24px;
+    margin-left: 10px;
+    opacity: 1;
+  }
+
+  &:active &__icon {
+    width: 18px;
+    background-image: url("/check.svg");
+    background-size: 18px 16px;
+  }
+}
+
+// Solid orange call-to-action with the growing plus icon (home + detail header).
+@mixin primary-button {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  border-radius: var(--button-radius);
+  padding: var(--button-padding-block) var(--button-padding-inline);
+  background-color: var(--color-secondary-orange);
+  color: #221227;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+
+  &:hover,
+  &:active {
+    background-color: var(--color-primary-orange);
+  }
+
+  @include grow-plus-icon;
+}
+
+// Translucent orange secondary button (cancel, add-next, complete).
+// Colour, height and hover differ per use, so they stay at the call site.
+@mixin soft-button {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background-color: rgb(255 183 112 / 30%);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+// The notched badge shared by both survey cards ("Ends in …").
+@mixin notch-badge {
+  margin-top: auto;
+  min-width: 102px;
+  border-radius: 0 14px 0 0;
+  padding: 3px 6px;
+  background-color: var(--color-secondary-orange);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+// Square checkbox that fills with a check icon (create form + detail options).
+@mixin custom-check($border, $fill, $check-size) {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  border: 1.5px solid $border;
+  border-radius: 3px;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:checked {
+    background: $fill url("/check.svg") no-repeat center / #{$check-size};
+  }
+}
