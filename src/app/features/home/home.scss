@@ -1,125 +1,81 @@
+@use 'mixins';
+
 .hero {
   display: flex;
   align-items: center;
   gap: 32px;
   padding-top: 74px;
-}
 
-.hero__text {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 24px;
-}
+  &__text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
 
-.hero__headline {
-  max-width: 712px;
-  font-family: var(--font-heading);
-  font-size: 100px;
-  line-height: 89px;
-  color: var(--color-primary-orange);
-}
+  &__headline {
+    max-width: 712px;
+    font-family: var(--font-heading);
+    font-size: 100px;
+    line-height: 89px;
+    color: var(--color-primary-orange);
+  }
 
-.hero__description {
-  max-width: 666px;
-  margin: 0;
-  font-size: 24px;
-  line-height: 30px;
+  &__description {
+    max-width: 666px;
+    margin: 0;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  &__visual {
+    position: relative;
+    width: 426px;
+    height: 420px;
+    flex-shrink: 0;
+
+    /* Design specifies the hover effect for desktop only, not for touch devices. */
+    @media (hover: hover) {
+      &:hover .hero__card--default {
+        opacity: 0;
+      }
+
+      &:hover .hero__card--hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__card {
+    display: block;
+    width: 100%;
+    transition: opacity 200ms ease;
+
+    /* Stacked on top of the default artwork so both stay in the same spot while fading. */
+    &--hover {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+    }
+  }
 }
 
 .button {
-  display: inline-flex;
-  align-items: center;
-  border: none;
-  border-radius: var(--button-radius);
-  padding: var(--button-padding-block) var(--button-padding-inline);
-  background-color: var(--color-secondary-orange);
-  color: #221227;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 24px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 200ms ease;
-}
-
-/* Hover adds the plus icon, the pressed state swaps it for a check. */
-.button:hover,
-.button:active {
-  background-color: var(--color-primary-orange);
-}
-
-/* Collapsed to zero width so the button can grow smoothly on hover. */
-.button__icon {
-  width: 0;
-  height: 24px;
-  margin-left: 0;
-  overflow: hidden;
-  opacity: 0;
-  background: url("/add_circle.svg") no-repeat center / 20px 20px;
-  transition:
-    width 200ms ease,
-    margin-left 200ms ease,
-    opacity 200ms ease;
-}
-
-.button:hover .button__icon,
-.button:active .button__icon {
-  width: 24px;
-  margin-left: 10px;
-  opacity: 1;
-}
-
-.button:active .button__icon {
-  width: 18px;
-  background-image: url("/check.svg");
-  background-size: 18px 16px;
-}
-
-.hero__visual {
-  position: relative;
-  width: 426px;
-  height: 420px;
-  flex-shrink: 0;
-}
-
-.hero__card {
-  display: block;
-  width: 100%;
-  transition: opacity 200ms ease;
-}
-
-/* Stacked on top of the default artwork so both stay in the same spot while fading. */
-.hero__card--hover {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-
-/* Design specifies the hover effect for desktop only, not for touch devices. */
-@media (hover: hover) {
-  .hero__visual:hover .hero__card--default {
-    opacity: 0;
-  }
-
-  .hero__visual:hover .hero__card--hover {
-    opacity: 1;
-  }
+  @include mixins.primary-button;
 }
 
 .surveys {
   padding-top: 90px;
   padding-bottom: 90px;
-}
 
-.surveys__title {
-  font-family: var(--font-heading);
-  font-size: 72px;
-  line-height: 100%;
-  color: var(--color-primary-orange);
-  text-align: center;
+  &__title {
+    font-family: var(--font-heading);
+    font-size: 72px;
+    line-height: 100%;
+    color: var(--color-primary-orange);
+    text-align: center;
+  }
 }
 
 /* Narrower than the page container, which is what keeps the cards from spreading. */
@@ -127,22 +83,22 @@
   max-width: var(--surveys-width);
   margin: 0 auto;
   padding-top: 56px;
-}
 
-.highlights__title {
-  margin: 0;
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 32px;
-  line-height: 100%;
-  color: var(--color-text-on-dark);
-}
+  &__title {
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 100%;
+    color: var(--color-text-on-dark);
+  }
 
-/* The gap follows from the container width, so this row always lines up with the list below. */
-.highlights__row {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 32px;
+  /* The gap follows from the container width, so this row always lines up with the list below. */
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 32px;
+  }
 }
 
 .list {
@@ -152,12 +108,42 @@
   max-width: var(--surveys-width);
   margin: 0 auto;
   padding-top: 40px;
-}
 
-.list__filters {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  &__filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Show three rows (six cards); the rest scrolls inside this box.
+     The negative margin + padding keeps a gutter for the scrollbar so the cards stay 513px. */
+  &__scroll {
+    max-height: 413px;
+    overflow-y: auto;
+    margin-right: -24px;
+    padding-right: 24px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary-orange) transparent;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: var(--color-primary-orange);
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 513px);
+    gap: 16px;
+  }
 }
 
 .tabs {
@@ -176,42 +162,12 @@
   font-weight: 400;
   font-size: 16px;
   cursor: pointer;
-}
 
-.tab:not(.tab--active):hover {
-  background-color: var(--color-secondary-orange);
-}
+  &:not(&--active):hover {
+    background-color: var(--color-secondary-orange);
+  }
 
-.tab--active {
-  background-color: var(--color-primary-orange);
-}
-
-/* Show three rows (six cards); the rest scrolls inside this box.
-   The negative margin + padding keeps a gutter for the scrollbar so the cards stay 513px. */
-.list__scroll {
-  max-height: 413px;
-  overflow-y: auto;
-  margin-right: -24px;
-  padding-right: 24px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-primary-orange) transparent;
-}
-
-.list__scroll::-webkit-scrollbar {
-  width: 8px;
-}
-
-.list__scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.list__scroll::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: var(--color-primary-orange);
-}
-
-.list__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 513px);
-  gap: 16px;
+  &--active {
+    background-color: var(--color-primary-orange);
+  }
 }
