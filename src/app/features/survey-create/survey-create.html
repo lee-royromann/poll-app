@@ -22,6 +22,7 @@
               <input
                 id="survey-name"
                 class="input"
+                maxlength="80"
                 [class.input--error]="submitted() && !title().trim()"
                 [ngModel]="title()"
                 (ngModelChange)="title.set($event)"
@@ -65,6 +66,7 @@
               <textarea
                 id="description"
                 class="input input--area"
+                maxlength="300"
                 [ngModel]="description()"
                 (ngModelChange)="description.set($event)"
               ></textarea>
@@ -89,6 +91,7 @@
 
             <input
               class="input"
+              maxlength="150"
               placeholder="Which date would work best for you?"
               [class.input--error]="submitted() && !question.text.trim()"
               [(ngModel)]="question.text"
@@ -107,6 +110,7 @@
                 <span class="answer__letter">{{ letter(ai) }}.</span>
                 <input
                   class="input answer__field"
+                  maxlength="80"
                   [class.input--error]="submitted() && !answer.text.trim()"
                   [(ngModel)]="answer.text"
                 />
