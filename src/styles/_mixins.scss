@@ -1,6 +1,16 @@
 // Shared style patterns that repeat across components.
 // Kept as mixins (not @extend) so each call site stays flat and self-contained.
 
+// The design has only two frames: 1440px desktop and 375px mobile. 768px is the
+// switch point below which the layout stacks vertically. Use: @include mixins.mobile { … }
+$bp-mobile: 768px;
+
+@mixin mobile {
+  @media (max-width: $bp-mobile) {
+    @content;
+  }
+}
+
 // The plus icon that grows in on hover and turns into a check when pressed.
 // Expects the icon element to be named "<block>__icon".
 @mixin grow-plus-icon {
