@@ -20,6 +20,9 @@ export class SurveyDetail {
 
   survey = signal<Survey | null>(null);
 
+  /** Mobile only: the results sit behind a "See results" / "Close results" accordion. */
+  resultsOpen = signal(true);
+
   /** Guards against a double submit while votes are being saved. */
   private saving = false;
 
@@ -40,6 +43,10 @@ export class SurveyDetail {
 
   letter(index: number): string {
     return String.fromCharCode(65 + index);
+  }
+
+  toggleResults(): void {
+    this.resultsOpen.update((open) => !open);
   }
 
   isSelected(questionId: string, optionId: string): boolean {

@@ -18,16 +18,27 @@
 .layout {
   display: flex;
   gap: 42px;
+  justify-content: center;
+
+  @include mixins.mobile {
+    flex-direction: column;
+  }
 }
 
 /* Only the form sits in the lavender panel; the results are on the page next to it. */
 .panel {
   display: flex;
   flex-direction: column;
-  width: 702px;
+  /* Shrinks from 702px in the fluid zone instead of overflowing; full width on mobile. */
+  flex: 0 1 702px;
+  min-width: 0;
   padding: 40px;
   border-radius: 0 160px 0 0;
   background-color: rgb(142 112 153 / 10%);
+
+  @include mixins.mobile {
+    border-radius: 0 100px 0 0;
+  }
 }
 
 .form {
@@ -50,24 +61,29 @@
 .meta {
   display: flex;
   justify-content: space-between;
-  width: 608px;
+  width: 100%;
   margin-top: 8px;
   font-weight: 500;
   font-size: 14px;
 }
 
 .title {
-  width: 622px;
+  width: 100%;
   margin-top: 8px;
   font-family: var(--font-heading);
   font-weight: 400;
   font-size: 56px;
   line-height: 50px;
   color: #ee9236;
+
+  @include mixins.mobile {
+    font-size: 48px;
+    line-height: 42px;
+  }
 }
 
 .description {
-  width: 622px;
+  width: 100%;
   margin: 8px 0 0;
   font-weight: 500;
   font-size: 16px;
@@ -78,8 +94,12 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-  width: 622px;
+  width: 100%;
   margin-top: 40px;
+
+  @include mixins.mobile {
+    grid-template-columns: 1fr;
+  }
 }
 
 .question {
@@ -147,10 +167,23 @@
     cursor: not-allowed;
     opacity: 0.6;
   }
+
+  /* Mobile uses the solid primary button instead of the translucent desktop one. */
+  @include mixins.mobile {
+    height: 48px;
+    background-color: var(--color-primary-orange);
+    color: #221227;
+    font-size: 18px;
+  }
 }
 
 .results {
-  width: 315px;
+  flex: 0 0 315px;
+
+  /* The toggle exists only on mobile; desktop shows the results permanently. */
+  &__toggle {
+    display: none;
+  }
 
   &__title {
     margin: 0;
@@ -184,6 +217,50 @@
     flex-direction: column;
     gap: 24px;
     margin-top: 16px;
+  }
+
+  /* Mobile: the results collapse behind a "See results" / "Close results" toggle. */
+  @include mixins.mobile {
+    flex: 0 0 auto;
+    width: 100%;
+
+    &__toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 32px;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 6px 4px 10px;
+      background: none;
+      color: var(--color-primary-purple);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 100%;
+      cursor: pointer;
+    }
+
+    /* Reuses the chevron asset, recoloured purple; points up when open. */
+    &__arrow {
+      width: 24px;
+      height: 24px;
+      background-color: var(--color-primary-purple);
+      mask: url("/arrow_white.svg") no-repeat center / 15px 8px;
+    }
+
+    &__body {
+      display: none;
+      margin-top: 14px;
+    }
+
+    &--open &__body {
+      display: block;
+    }
+
+    &--open &__arrow {
+      transform: rotate(180deg);
+    }
   }
 }
 
