@@ -57,3 +57,10 @@ h6 {
     padding: 0 16px;
   }
 }
+
+/* Angular component hosts default to display:inline, which lets wide content stretch
+   the page instead of wrapping. Making the roots block-level fixes the layout width. */
+app-root,
+app-home {
+  display: block;
+}
