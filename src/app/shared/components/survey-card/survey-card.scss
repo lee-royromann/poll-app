@@ -1,5 +1,10 @@
 @use 'mixins';
 
+/* Keeps its width in the horizontal carousel instead of shrinking to fit. */
+:host {
+  flex-shrink: 0;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -11,6 +16,12 @@
   background-color: var(--color-bg-card);
   color: var(--color-primary-purple);
   cursor: pointer;
+
+  @include mixins.mobile {
+    width: 250px;
+    height: 233px;
+    padding: 24px 16px;
+  }
 
   /* Hover tint from the component sheet, same as the dropdown menu entries. */
   &:hover {
@@ -33,6 +44,10 @@
     font-family: var(--font-body);
     font-size: 26px;
     font-weight: 700;
+
+    @include mixins.mobile {
+      font-size: 24px;
+    }
   }
 
   /* Pushed to the bottom of the card and widened to the longest label. */

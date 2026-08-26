@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   gap: 22.5px;
-  width: 513px;
+  width: 100%;
   min-height: 127px;
   padding: 12px 20px;
   border-radius: 5px 50px 5px 5px;
@@ -42,6 +42,10 @@
     font-weight: 700;
     line-height: 100%;
     color: var(--color-text-on-dark);
+
+    @include mixins.mobile {
+      font-size: 20px;
+    }
   }
 
   /* Pinned to the bottom and widened to the longest label. */
