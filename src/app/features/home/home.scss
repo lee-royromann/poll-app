@@ -59,6 +59,47 @@
       opacity: 0;
     }
   }
+
+  /* Mobile stacks Headline → Visual → Text → Button. display:contents promotes the
+     text wrapper's children so the visual can slot between them via order. Placed last
+     so these overrides win over the base rules above (media queries add no specificity). */
+  @include mixins.mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+
+    &__text {
+      display: contents;
+    }
+
+    &__headline {
+      order: 1;
+      font-size: 62px;
+      line-height: 50px;
+
+      /* The desktop line break would overflow at 62px; let it wrap naturally. */
+      br {
+        display: none;
+      }
+    }
+
+    &__visual {
+      order: 2;
+      width: 100%;
+      height: auto;
+    }
+
+    &__description {
+      order: 3;
+      font-size: 18px;
+      line-height: 100%;
+    }
+
+    .button {
+      order: 4;
+      align-self: flex-start;
+    }
+  }
 }
 
 .button {
@@ -75,6 +116,10 @@
     line-height: 100%;
     color: var(--color-primary-orange);
     text-align: center;
+
+    @include mixins.mobile {
+      font-size: 54px;
+    }
   }
 }
 
@@ -98,6 +143,13 @@
     display: flex;
     justify-content: space-between;
     padding-top: 32px;
+    /* Scrolls horizontally once the fixed-width cards no longer fit (fluid + mobile carousel). */
+    overflow-x: auto;
+
+    @include mixins.mobile {
+      justify-content: flex-start;
+      gap: 16px;
+    }
   }
 }
 
@@ -113,6 +165,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include mixins.mobile {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 48px;
+    }
   }
 
   /* Show three rows (six cards); the rest scrolls inside this box.
@@ -120,10 +178,20 @@
   &__scroll {
     max-height: 413px;
     overflow-y: auto;
-    margin-right: -24px;
-    padding-right: 24px;
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary-orange) transparent;
+
+    /* Push the scrollbar into the page gutter only where there is room for it. */
+    @media (min-width: 1220px) {
+      margin-right: -24px;
+      padding-right: 24px;
+    }
+
+    /* On mobile the whole page scrolls, so drop the fixed height. */
+    @include mixins.mobile {
+      max-height: none;
+      overflow-y: visible;
+    }
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -141,8 +209,13 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(2, 513px);
+    /* Fluid tracks so the two columns shrink instead of overflowing below 1042px. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
+
+    @include mixins.mobile {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
