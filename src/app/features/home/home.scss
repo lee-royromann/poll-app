@@ -185,10 +185,9 @@
   /* Show three rows (six cards); the rest scrolls inside this box.
      The negative margin + padding keeps a gutter for the scrollbar so the cards stay 513px. */
   &__scroll {
+    @include mixins.custom-scrollbar;
     max-height: 413px;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-primary-orange) transparent;
 
     /* Push the scrollbar into the page gutter only where there is room for it. */
     @media (min-width: 1220px) {
@@ -200,19 +199,6 @@
     @include mixins.mobile {
       max-height: none;
       overflow-y: visible;
-    }
-
-    &::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      background-color: var(--color-primary-orange);
     }
   }
 

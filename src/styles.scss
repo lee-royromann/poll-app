@@ -24,6 +24,11 @@
   box-sizing: border-box;
 }
 
+/* The page scrollbar uses the same orange style as the survey list scroll box. */
+html {
+  @include mixins.custom-scrollbar;
+}
+
 body {
   margin: 0;
   background-color: var(--color-primary-purple);

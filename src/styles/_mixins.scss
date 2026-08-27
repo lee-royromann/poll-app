@@ -11,6 +11,25 @@ $bp-mobile: 768px;
   }
 }
 
+// Thin orange scrollbar shared by the page and the survey list scroll box.
+@mixin custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-orange) transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--color-primary-orange);
+  }
+}
+
 // The plus icon that grows in on hover and turns into a check when pressed.
 // Expects the icon element to be named "<block>__icon". The interactive part is gated
 // behind (hover: hover) so touch devices never show a stuck icon.
