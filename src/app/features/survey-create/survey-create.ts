@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CategoryDropdown } from '../../shared/components/category-dropdown/category-dropdown';
+import { Header } from '../../shared/components/header/header';
 import { CATEGORIES } from '../../core/constants/categories';
 import { SurveyService } from '../../core/services/survey.service';
 import { NewSurvey, Question } from '../../core/models/survey';
@@ -12,7 +13,7 @@ const MIN_ANSWERS = 2;
 
 @Component({
   selector: 'app-survey-create',
-  imports: [FormsModule, RouterLink, CategoryDropdown],
+  imports: [FormsModule, RouterLink, CategoryDropdown, Header],
   templateUrl: './survey-create.html',
   styleUrl: './survey-create.scss',
 })

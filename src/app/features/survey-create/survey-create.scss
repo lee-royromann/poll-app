@@ -6,6 +6,20 @@
 
   /* This screen is a light frame in the design, unlike the dark rest of the app. */
   background-color: #fefdff;
+
+  @include mixins.mobile {
+    padding: 9px 0 40px;
+  }
+}
+
+/* The logo only appears on the mobile create frame (desktop frame 04 has none). */
+.create__logo {
+  display: none;
+
+  @include mixins.mobile {
+    display: block;
+    margin-bottom: 54px;
+  }
 }
 
 .panel {
