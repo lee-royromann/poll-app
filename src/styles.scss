@@ -24,9 +24,15 @@
   box-sizing: border-box;
 }
 
-/* The page scrollbar uses the same orange style as the survey list scroll box. */
+/* Page scrollbar hidden for now (page still scrolls). The orange style lives in the
+   custom-scrollbar mixin and stays in use on the survey list — swap this back to
+   `@include mixins.custom-scrollbar;` to show it again. */
 html {
-  @include mixins.custom-scrollbar;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body {
