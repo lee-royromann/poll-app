@@ -18,17 +18,15 @@
         <div class="fields__col fields__col--left">
           <div class="field">
             <label class="field__label" for="survey-name">Survey name</label>
-            <div class="field__row">
-              <input
-                id="survey-name"
-                class="input"
-                maxlength="80"
-                [class.input--error]="submitted() && !title().trim()"
-                [ngModel]="title()"
-                (ngModelChange)="title.set($event)"
-              />
-              <button class="delete" type="button" (click)="title.set('')" aria-label="Clear survey name"></button>
-            </div>
+            <input
+              id="survey-name"
+              class="input"
+              maxlength="80"
+              [class.input--error]="submitted() && !title().trim()"
+              [ngModel]="title()"
+              (ngModelChange)="title.set($event)"
+            />
+            <button class="delete" type="button" (click)="title.set('')" aria-label="Clear survey name"></button>
           </div>
 
           <div class="fields__inline">
@@ -36,18 +34,16 @@
               <label class="field__label" for="end-date">
                 Set end date <span class="field__optional">(optional)</span>
               </label>
-              <div class="field__row">
-                <input
-                  id="end-date"
-                  class="input input--date"
-                  type="date"
-                  [min]="today"
-                  [class.input--error]="submitted() && !isEndDateValid()"
-                  [ngModel]="endDate()"
-                  (ngModelChange)="endDate.set($event)"
-                />
-                <button class="delete" type="button" (click)="endDate.set('')" aria-label="Clear end date"></button>
-              </div>
+              <input
+                id="end-date"
+                class="input input--date"
+                type="date"
+                [min]="today"
+                [class.input--error]="submitted() && !isEndDateValid()"
+                [ngModel]="endDate()"
+                (ngModelChange)="endDate.set($event)"
+              />
+              <button class="delete" type="button" (click)="endDate.set('')" aria-label="Clear end date"></button>
             </div>
 
             <app-category-dropdown
@@ -64,16 +60,14 @@
             <label class="field__label" for="description">
               Describing text <span class="field__optional">(optional)</span>
             </label>
-            <div class="field__row field__row--top">
-              <textarea
-                id="description"
-                class="input input--area"
-                maxlength="300"
-                [ngModel]="description()"
-                (ngModelChange)="description.set($event)"
-              ></textarea>
-              <button class="delete" type="button" (click)="description.set('')" aria-label="Clear description"></button>
-            </div>
+            <textarea
+              id="description"
+              class="input input--area"
+              maxlength="300"
+              [ngModel]="description()"
+              (ngModelChange)="description.set($event)"
+            ></textarea>
+            <button class="delete" type="button" (click)="description.set('')" aria-label="Clear description"></button>
           </div>
         </div>
       </div>

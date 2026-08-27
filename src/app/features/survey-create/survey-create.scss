@@ -144,12 +144,25 @@
   }
 }
 
+/* Desktop: label on top, input + delete beside it (Figma frame 04).
+   Mobile: label + delete share the top row, input goes below (Figma mobile frame). */
 .field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 6px;
+  grid-template-areas:
+    "label ."
+    "input delete";
+
+  /* The tall describing field keeps its delete at the top, level with the label. */
+  &:has(textarea) {
+    align-items: start;
+  }
 
   &__label {
+    grid-area: label;
     font-weight: 700;
     font-size: 18px;
     line-height: 100%;
@@ -159,15 +172,20 @@
     font-weight: 400;
   }
 
-  &__row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  > .input {
+    grid-area: input;
+  }
 
-    /* The multi line field keeps its delete icon at the top, as in the design. */
-    &--top {
-      align-items: flex-start;
-    }
+  > .delete {
+    grid-area: delete;
+  }
+
+  @include mixins.mobile {
+    align-items: center;
+    row-gap: 4px;
+    grid-template-areas:
+      "label delete"
+      "input input";
   }
 }
 
@@ -272,21 +290,36 @@
   }
 }
 
+/* Desktop: letter, input and delete in one row (Figma frame 04).
+   Mobile: letter + delete on the top row, input below (Figma mobile frame). */
 .answer {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
+  column-gap: 8px;
+  grid-template-areas: "letter input delete";
 
   &__letter {
-    width: 23px;
-    margin-right: 4px;
+    grid-area: letter;
     font-weight: 700;
     font-size: 18px;
     line-height: 100%;
   }
 
   &__field {
-    width: 363px;
-    margin-right: 8px;
+    grid-area: input;
+  }
+
+  > .delete {
+    grid-area: delete;
+  }
+
+  @include mixins.mobile {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 4px;
+    grid-template-areas:
+      "letter delete"
+      "input input";
   }
 }
 
