@@ -159,7 +159,8 @@
       display: none;
     }
 
-    @include mixins.mobile {
+    /* Cards stay evenly spread until the carousel kicks in at 814px. */
+    @media (max-width: 814px) {
       justify-content: flex-start;
       gap: 16px;
     }
