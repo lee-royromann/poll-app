@@ -74,10 +74,10 @@
 
     &__headline {
       order: 1;
-      font-size: 62px;
+      font-size: 56px;
       line-height: 50px;
 
-      /* The desktop line break would overflow at 62px; let it wrap naturally. */
+      /* The desktop line break would overflow at this size; let it wrap naturally. */
       br {
         display: none;
       }
