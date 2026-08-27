@@ -1,59 +1,79 @@
-# PollApp
+# Poll App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.19.
+A small web app for creating and answering surveys ("polls"), built with Angular and a
+Supabase backend. Anyone can create a survey, share it, vote, and watch the results update
+live — no login required. Built to the "Poll App Design" Figma spec (desktop 1440px and
+mobile 375px).
 
-## Development server
+Live: https://poll-app.lee-roy.ch
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+- **Home** — all surveys at a glance, sorted by deadline, with an "Ending soon" highlight
+  row, `Active` / `Past` tabs, and a category filter.
+- **Create** — a separate form with required (title, answer options) and optional fields
+  (description, end date, category), inline validation, and 2–6 answers per question.
+- **Vote** — open a running survey, pick answers, and complete it; every question must be
+  answered before submitting. Past surveys are read-only and not clickable.
+- **Live results** — a horizontal bar chart that updates as you select options; shown next
+  to the form on desktop and behind a "See results" accordion on mobile.
+- **Responsive** — a single mobile breakpoint (768px); the layout stacks vertically below it.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tech stack
 
-## Code scaffolding
+- Angular 21 (standalone components, signals, native control flow)
+- TypeScript, SCSS (BEM + shared mixins), HTML
+- Supabase (`@supabase/supabase-js`) with two tables: `surveys` + `votes`
+- `@fontsource/nerko-one` + `@fontsource/mulish` for the design fonts
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Getting started
 
-```bash
-ng generate component component-name
-```
+**Prerequisites:** Node.js 20+ and a Supabase project with the schema from
+`_docs/poll-app-handoff/docs/database.md` (tables `surveys` + `votes`, plus the read/insert
+RLS policies).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Install dependencies:
 
-```bash
-ng generate --help
-```
+   ```bash
+   npm install
+   ```
 
-## Building
+2. Add your Supabase URL and anon key to the environment files
+   (`src/environments/environment.ts` and `environment.development.ts`):
 
-To build the project run:
+   ```ts
+   export const environment = {
+     supabaseUrl: 'https://<your-project>.supabase.co',
+     supabaseKey: '<your-anon-key>',
+   };
+   ```
+
+3. Start the dev server:
+
+   ```bash
+   npm start
+   ```
+
+   Open `http://localhost:4200/`.
+
+## Build & deploy
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The production build lands in `dist/poll-app/browser/` — upload the **contents** of that
+folder to any static host. The app uses **hash-based routing** (`/#/survey/:id`), so it needs
+no server-side rewrite rules and works on hosting that answers unknown paths with a 404.
 
-## Running unit tests
+## Project structure
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```
+src/app/
+  core/        models, services (SurveyService, VotesService), utilities
+  features/    home, survey-create, survey-detail
+  shared/      header, survey-card, survey-list-card, category-dropdown
+src/styles/    _mixins.scss (shared button/badge/checkbox/breakpoint mixins)
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Design tokens (colours, fonts, spacing) live as CSS custom properties in `src/styles.scss`.
