@@ -21,10 +21,10 @@
     line-height: 89px;
     color: var(--color-primary-orange);
 
-    /* From 1024px down to where the hero stacks (780px), scale smoothly 100px → 56px
+    /* From 1024px down to where the hero stacks (720px), scale smoothly 100px → 56px
        so the headline keeps fitting next to the visual in the narrow desktop range. */
-    @media (min-width: 781px) and (max-width: 1024px) {
-      font-size: clamp(56px, calc(56px + 44 * ((100vw - 781px) / 243)), 100px);
+    @media (min-width: 721px) and (max-width: 1024px) {
+      font-size: clamp(56px, calc(56px + 44 * ((100vw - 721px) / 303)), 100px);
       line-height: 0.9;
     }
   }
@@ -67,10 +67,15 @@
     }
   }
 
-  /* The hero stacks later than the rest of the page (at 780px) to keep the two-column
+  /* Still two columns here, but drop the column gap so the headline keeps its room. */
+  @media (max-width: 780px) {
+    gap: 0;
+  }
+
+  /* The hero stacks later than the rest of the page (at 720px) to keep the two-column
      layout while it still fits. display:contents promotes the text wrapper's children so
      the visual can slot between them via order. Placed last so these overrides win. */
-  @media (max-width: 780px) {
+  @media (max-width: 720px) {
     flex-direction: column;
     align-items: stretch;
     gap: 24px;
