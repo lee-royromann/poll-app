@@ -12,7 +12,8 @@ $bp-mobile: 768px;
 }
 
 // The plus icon that grows in on hover and turns into a check when pressed.
-// Expects the icon element to be named "<block>__icon".
+// Expects the icon element to be named "<block>__icon". The interactive part is gated
+// behind (hover: hover) so touch devices never show a stuck icon.
 @mixin grow-plus-icon {
   &__icon {
     width: 0;
@@ -27,17 +28,19 @@ $bp-mobile: 768px;
       opacity 200ms ease;
   }
 
-  &:hover &__icon,
-  &:active &__icon {
-    width: 24px;
-    margin-left: 10px;
-    opacity: 1;
-  }
+  @media (hover: hover) {
+    &:hover &__icon,
+    &:active &__icon {
+      width: 24px;
+      margin-left: 10px;
+      opacity: 1;
+    }
 
-  &:active &__icon {
-    width: 18px;
-    background-image: url("/check.svg");
-    background-size: 18px 16px;
+    &:active &__icon {
+      width: 18px;
+      background-image: url("/check.svg");
+      background-size: 18px 16px;
+    }
   }
 }
 
@@ -58,12 +61,26 @@ $bp-mobile: 768px;
   cursor: pointer;
   transition: background-color 200ms ease;
 
-  &:hover,
-  &:active {
-    background-color: var(--color-primary-orange);
+  @media (hover: hover) {
+    &:hover,
+    &:active {
+      background-color: var(--color-primary-orange);
+    }
   }
 
   @include grow-plus-icon;
+
+  /* Touch devices have no hover, so the button shows its "hover" look permanently:
+     primary-orange fill with the plus icon always visible (per the mobile design). */
+  @include mobile {
+    background-color: var(--color-primary-orange);
+
+    &__icon {
+      width: 24px;
+      margin-left: 10px;
+      opacity: 1;
+    }
+  }
 }
 
 // Translucent orange secondary button (cancel, add-next, complete).
