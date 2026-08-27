@@ -384,6 +384,9 @@
 }
 
 .publish {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   align-self: flex-end;
   height: 48px;
   border: none;
@@ -403,6 +406,18 @@
 
   @include mixins.mobile {
     align-self: center;
+  }
+
+  /* Checkmark on mobile only (desktop frame 04 has no icon). */
+  &__icon {
+    display: none;
+
+    @include mixins.mobile {
+      display: block;
+      width: 24px;
+      height: 24px;
+      background: url("/done.svg") no-repeat center / 24px 24px;
+    }
   }
 }
 
