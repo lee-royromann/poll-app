@@ -16,6 +16,10 @@ export class CategoryDropdown {
   /** When set, an extra entry is shown that clears the selection. */
   resetLabel = input<string | null>(null);
 
+  /** When true the chosen value replaces the placeholder in the trigger instead of
+      appearing below it, so a selection never shifts the surrounding layout. */
+  inlineSelection = input(false);
+
   selectionChange = output<string | null>();
 
   isOpen = signal(false);

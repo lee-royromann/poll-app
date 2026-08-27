@@ -5,7 +5,7 @@
     [class.dropdown__trigger--open]="isOpen()"
     (click)="toggle()"
   >
-    {{ placeholder() }}
+    {{ inlineSelection() ? (selected() ?? placeholder()) : placeholder() }}
     <span
       class="dropdown__arrow"
       [class.dropdown__arrow--active]="isOpen() || selected()"
@@ -29,7 +29,7 @@
     </ul>
   }
 
-  @if (selected(); as category) {
+  @if (!inlineSelection() && selected(); as category) {
     <p class="dropdown__selected">{{ category }}</p>
   }
 </div>

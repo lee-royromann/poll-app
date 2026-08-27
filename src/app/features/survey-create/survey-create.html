@@ -50,6 +50,7 @@
               placeholder="Choose category"
               [options]="categories"
               [selected]="category()"
+              [inlineSelection]="true"
               (selectionChange)="category.set($event)"
             />
           </div>
