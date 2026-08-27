@@ -70,6 +70,13 @@
     background-color: rgb(255 183 112 / 60%);
   }
 
+  /* On narrow screens the button collapses to just the X, as in the design. */
+  &__label {
+    @media (max-width: 530px) {
+      display: none;
+    }
+  }
+
   &__icon {
     width: 14px;
     height: 14px;
