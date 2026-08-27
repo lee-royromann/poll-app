@@ -11,8 +11,10 @@
   @include mixins.primary-button;
 }
 
+/* Longhands only, so they don't zero out the container's mobile side padding. */
 .detail {
-  padding: 40px 0 80px;
+  padding-top: 40px;
+  padding-bottom: 80px;
 }
 
 .layout {
