@@ -20,6 +20,10 @@
   background-color: var(--color-primary-purple);
   color: #fefdff;
 
+  @include mixins.mobile {
+    padding: 40px 16px;
+  }
+
   &__head {
     display: flex;
     flex-direction: column;
@@ -72,29 +76,28 @@
   }
 }
 
-/* 32 + 472 + 64 + 452 + 32 adds up to this width exactly. */
+/* 32 + 472 + 64 + 452 + 32 adds up to 1052; fluid below that so it never overflows. */
 .fields {
   display: flex;
   flex-direction: column;
   gap: 48px;
-  width: 1052px;
+  width: 100%;
+  max-width: 1052px;
   border-radius: 5px 80px 5px 5px;
   padding: 40px 32px;
   background-color: rgb(142 112 153 / 16%);
 
-  /* Fixed column widths from the design, so the columns cannot squeeze each other. */
+  @include mixins.mobile {
+    padding: 24px 16px;
+  }
+
+  /* Columns share the row and shrink together in the fluid zone. */
   &__col {
     display: flex;
     flex-direction: column;
     gap: 10px;
-
-    &--left {
-      width: 472px;
-    }
-
-    &--right {
-      width: 452px;
-    }
+    flex: 1;
+    min-width: 0;
   }
 
   /* Top aligned so the category dropdown lines up with the labels, as in the design. */
@@ -102,20 +105,36 @@
     display: flex;
     align-items: flex-start;
     gap: 6px;
+
+    @include mixins.mobile {
+      flex-direction: column;
+      gap: 8px;
+    }
   }
 }
 
 .top-fields {
   display: flex;
   gap: 64px;
+
+  @include mixins.mobile {
+    flex-direction: column;
+    gap: 48px;
+  }
 }
 
 /* Questions flow two per row; "Add next question" is just the last cell. */
 .questions {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* minmax(0,…) lets the tracks shrink below the fixed input width instead of overflowing. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 64px;
   row-gap: 48px;
+
+  @include mixins.mobile {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 24px;
+  }
 }
 
 .field {
@@ -147,6 +166,8 @@
 
 .input {
   width: 429px;
+  /* Never exceed the parent, so column-placed inputs shrink on narrow screens. */
+  max-width: 100%;
   height: 37px;
   border: none;
   border-radius: 5px 20px 5px 5px;
@@ -160,6 +181,10 @@
   /* Sized so this row ends flush with the survey name row above it. */
   &--date {
     width: 217px;
+
+    @include mixins.mobile {
+      width: 100%;
+    }
   }
 
   &--area {
@@ -201,7 +226,8 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 429px;
+  width: 100%;
+  max-width: 429px;
 
   &__head {
     display: flex;
@@ -261,7 +287,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 429px;
+  width: 100%;
+  max-width: 429px;
 
   /* No design value for this hint; muted white chosen to match the label style. */
   &__hint {
@@ -347,6 +374,22 @@
   background-color: var(--color-overlay);
   animation: overlay-in 300ms ease-out;
 
+  /* Mobile: fixed to the bottom, centred, and slides up from below. */
+  @include mixins.mobile {
+    position: fixed;
+    right: auto;
+    bottom: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 357px;
+    max-width: calc(100% - 18px);
+    height: 169px;
+    padding: 22px 26px;
+    animation: overlay-in-bottom 300ms ease-out;
+  }
+
   &__text {
     margin: 0;
     font-family: var(--font-heading);
@@ -378,6 +421,19 @@
 
   to {
     transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile variant keeps the horizontal centering while sliding up. */
+@keyframes overlay-in-bottom {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, 0);
     opacity: 1;
   }
 }
