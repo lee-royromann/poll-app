@@ -58,13 +58,18 @@ h6 {
   font-weight: 400;
 }
 
-/* Centred content column of the 1440px design. The extra 32px in the cap covers the
-   16px side gutters, so the column stays at --content-width on wide screens but gains
+/* Centred content column of the 1440px design. The extra 64px in the cap covers the
+   32px side gutters, so the column stays at --content-width on wide screens but gains
    side margins the moment the viewport is narrower than the design. */
 .container {
-  max-width: calc(var(--content-width) + 32px);
+  max-width: calc(var(--content-width) + 64px);
   margin: 0 auto;
-  padding-inline: 16px;
+  padding-inline: 32px;
+
+  /* Below 870px the roomier gutter would eat too much width, so tighten it to 16px. */
+  @media (max-width: 870px) {
+    padding-inline: 16px;
+  }
 }
 
 /* Angular component hosts default to display:inline, which lets wide content stretch
