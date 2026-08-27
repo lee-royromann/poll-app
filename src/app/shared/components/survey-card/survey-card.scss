@@ -17,8 +17,8 @@
   color: var(--color-primary-purple);
   cursor: pointer;
 
-  /* These highlight cards shrink earlier than the global breakpoint (below 1024px). */
-  @media (max-width: 1023px) {
+  /* These highlight cards shrink early (below 1070px) so they never touch each other. */
+  @media (max-width: 1070px) {
     width: 250px;
     height: 233px;
     padding: 24px 16px;
@@ -46,7 +46,7 @@
     font-size: 26px;
     font-weight: 700;
 
-    @media (max-width: 1023px) {
+    @media (max-width: 1070px) {
       font-size: 24px;
     }
   }
