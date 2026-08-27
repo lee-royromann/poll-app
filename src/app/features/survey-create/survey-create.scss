@@ -94,8 +94,10 @@
   padding: 40px 32px;
   background-color: rgb(142 112 153 / 16%);
 
-  /* Extra top padding so the first delete icon clears the 80px rounded corner. */
+  /* Extra top padding so the first delete icon clears the 80px rounded corner.
+     Centre the (capped) field and question columns so nothing stretches full width. */
   @include mixins.mobile {
+    align-items: center;
     padding: 40px 16px 24px;
   }
 
@@ -132,6 +134,8 @@
   @include mixins.mobile {
     flex-direction: column;
     gap: 8px;
+    /* Capped so fields don't stretch full width on wide phones/tablets. */
+    width: min(100%, 429px);
   }
 }
 
@@ -146,6 +150,7 @@
   @include mixins.mobile {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 24px;
+    width: min(100%, 429px);
   }
 }
 
@@ -221,6 +226,10 @@
     width: 418px;
     height: 108px;
     resize: none;
+
+    @include mixins.mobile {
+      width: 100%;
+    }
   }
 
   /* No error state exists in the design, so this red is a deliberate addition. */
