@@ -98,6 +98,9 @@
     .button {
       order: 4;
       align-self: center;
+      /* Design puts 54px between the hero text and the button; 24px comes from the
+         flex gap, so 30px extra makes up the difference. */
+      margin-top: 30px;
     }
   }
 }
