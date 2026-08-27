@@ -143,8 +143,14 @@
     display: flex;
     justify-content: space-between;
     padding-top: 32px;
-    /* Scrolls horizontally once the fixed-width cards no longer fit (fluid + mobile carousel). */
+    /* Scrolls horizontally once the fixed-width cards no longer fit (fluid + mobile carousel).
+       The scrollbar is hidden to match the design; swipe/trackpad scrolling still works. */
     overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     @include mixins.mobile {
       justify-content: flex-start;
