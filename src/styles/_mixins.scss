@@ -1,9 +1,10 @@
 // Shared style patterns that repeat across components.
 // Kept as mixins (not @extend) so each call site stays flat and self-contained.
 
-// The design has only two frames: 1440px desktop and 375px mobile. 768px is the
-// switch point below which the layout stacks vertically. Use: @include mixins.mobile { … }
-$bp-mobile: 768px;
+// The design has only two frames: 1440px desktop and 375px mobile. The desktop hero
+// (100px headline + fixed illustration) needs ~884px to fit, so the layout stacks below
+// 900px to avoid a broken in-between zone. Use: @include mixins.mobile { … }
+$bp-mobile: 900px;
 
 @mixin mobile {
   @media (max-width: $bp-mobile) {
