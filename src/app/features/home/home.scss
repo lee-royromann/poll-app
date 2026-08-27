@@ -93,7 +93,10 @@
     &__visual {
       order: 2;
       width: 100%;
+      /* Capped at the mobile design size so it doesn't blow up on wider stacked views. */
+      max-width: 343px;
       height: auto;
+      align-self: center;
     }
 
     &__description {
