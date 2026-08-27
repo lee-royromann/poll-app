@@ -17,7 +17,8 @@
   color: var(--color-primary-purple);
   cursor: pointer;
 
-  @include mixins.mobile {
+  /* These highlight cards shrink earlier than the global breakpoint (below 1024px). */
+  @media (max-width: 1023px) {
     width: 250px;
     height: 233px;
     padding: 24px 16px;
@@ -45,7 +46,7 @@
     font-size: 26px;
     font-weight: 700;
 
-    @include mixins.mobile {
+    @media (max-width: 1023px) {
       font-size: 24px;
     }
   }
