@@ -94,8 +94,9 @@
   padding: 40px 32px;
   background-color: rgb(142 112 153 / 16%);
 
+  /* Extra top padding so the first delete icon clears the 80px rounded corner. */
   @include mixins.mobile {
-    padding: 24px 16px;
+    padding: 40px 16px 24px;
   }
 
   /* Columns share the row and shrink together in the fluid zone. */
@@ -105,6 +106,11 @@
     gap: 10px;
     flex: 1;
     min-width: 0;
+
+    /* On mobile the columns dissolve so every field flows in one column (gap 8). */
+    @include mixins.mobile {
+      display: contents;
+    }
   }
 
   /* Top aligned so the category dropdown lines up with the labels, as in the design. */
@@ -114,8 +120,7 @@
     gap: 6px;
 
     @include mixins.mobile {
-      flex-direction: column;
-      gap: 8px;
+      display: contents;
     }
   }
 }
@@ -126,7 +131,7 @@
 
   @include mixins.mobile {
     flex-direction: column;
-    gap: 48px;
+    gap: 8px;
   }
 }
 
@@ -361,6 +366,12 @@
   gap: 10px;
   height: 40px;
   color: #fefdff;
+
+  /* Centred with more breathing room to the "Add answer" link above, as in the design. */
+  @include mixins.mobile {
+    justify-self: center;
+    margin-top: 24px;
+  }
 }
 
 /* The plus asset is dark for the orange home button, so it is whitened here. */
@@ -388,6 +399,10 @@
   &:disabled {
     cursor: default;
     opacity: 0.6;
+  }
+
+  @include mixins.mobile {
+    align-self: center;
   }
 }
 
