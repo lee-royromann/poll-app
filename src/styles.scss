@@ -58,15 +58,13 @@ h6 {
   font-weight: 400;
 }
 
-/* Centred content column of the 1440px design, which leaves 110px on each side. */
+/* Centred content column of the 1440px design. The extra 32px in the cap covers the
+   16px side gutters, so the column stays at --content-width on wide screens but gains
+   side margins the moment the viewport is narrower than the design. */
 .container {
-  max-width: var(--content-width);
+  max-width: calc(var(--content-width) + 32px);
   margin: 0 auto;
-
-  /* Keep content off the screen edges on phones (16px per the mobile frame). */
-  @include mixins.mobile {
-    padding: 0 16px;
-  }
+  padding-inline: 16px;
 }
 
 /* Angular component hosts default to display:inline, which lets wide content stretch
