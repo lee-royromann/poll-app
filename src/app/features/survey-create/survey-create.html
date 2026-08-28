@@ -19,7 +19,9 @@
       <div class="top-fields">
         <div class="fields__col fields__col--left">
           <div class="field">
-            <label class="field__label" for="survey-name">Survey name</label>
+            <label class="field__label" for="survey-name">
+              Survey name <span class="field__required">*</span>
+            </label>
             <input
               id="survey-name"
               class="input"
@@ -97,7 +99,7 @@
             />
 
             <div class="question__answers">
-              <span class="field__label">Answers</span>
+              <span class="field__label">Answers <span class="field__required">*</span></span>
               <label class="checkbox">
                 <input class="checkbox__box" type="checkbox" [(ngModel)]="question.allowMultiple" />
                 Allow multiple answers.

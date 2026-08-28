@@ -271,6 +271,11 @@
     font-weight: 400;
   }
 
+  /* Marks a required field, so the mandatory inputs are clearly flagged. */
+  &__required {
+    color: #e5484d;
+  }
+
   > .input {
     grid-area: input;
   }
