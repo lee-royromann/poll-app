@@ -49,6 +49,7 @@
             </div>
 
             <app-category-dropdown
+              class="create__category"
               placeholder="Choose category"
               [options]="categories"
               [selected]="category()"
@@ -142,10 +143,16 @@
       </div>
     </div>
 
-    <button class="publish" type="button" [disabled]="published()" (click)="publish()">
-      Publish
-      <span class="publish__icon"></span>
-    </button>
+    <div class="publish-row">
+      @if (submitted() && !isValid()) {
+        <p class="publish-error">Please fill in all required fields before publishing.</p>
+      }
+
+      <button class="publish" type="button" [disabled]="published()" (click)="publish()">
+        Publish
+        <span class="publish__icon"></span>
+      </button>
+    </div>
 
     @if (published()) {
       <div class="published-backdrop"></div>
