@@ -5,6 +5,7 @@ import { SurveyService } from '../../core/services/survey.service';
 import { VotesService } from '../../core/services/votes.service';
 import { Question, Survey } from '../../core/models/survey';
 import { formatDate } from '../../core/utils/deadline';
+import { letter } from '../../core/utils/letter';
 
 @Component({
   selector: 'app-survey-detail',
@@ -41,9 +42,8 @@ export class SurveyDetail {
     return questions.length > 0 && questions.every((q) => (this.selected()[q.id]?.size ?? 0) > 0);
   });
 
-  letter(index: number): string {
-    return String.fromCharCode(65 + index);
-  }
+  /** Exposed for the template to label options A, B, C … */
+  readonly letter = letter;
 
   toggleResults(): void {
     this.resultsOpen.update((open) => !open);

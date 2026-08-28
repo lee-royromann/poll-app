@@ -7,6 +7,7 @@ import { CATEGORIES } from '../../core/constants/categories';
 import { SurveyService } from '../../core/services/survey.service';
 import { NewSurvey, Question } from '../../core/models/survey';
 import { AnswerDraft, emptyQuestion, QuestionDraft } from './survey-draft';
+import { letter } from '../../core/utils/letter';
 
 const MAX_ANSWERS = 6;
 const MIN_ANSWERS = 2;
@@ -49,10 +50,8 @@ export class SurveyCreate {
     return this.endDate() === '' || this.endDate() >= this.today;
   }
 
-  /** Turns a zero-based index into the answer letter A, B, C … */
-  letter(index: number): string {
-    return String.fromCharCode(65 + index);
-  }
+  /** Exposed for the template to label answers A, B, C … */
+  readonly letter = letter;
 
   /** Guarded so a second click cannot save the same survey twice. */
   async publish(): Promise<void> {
