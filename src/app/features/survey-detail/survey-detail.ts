@@ -4,7 +4,7 @@ import { Header } from '../../shared/components/header/header';
 import { SurveyService } from '../../core/services/survey.service';
 import { VotesService } from '../../core/services/votes.service';
 import { Question, Survey } from '../../core/models/survey';
-import { formatDate } from '../../core/utils/deadline';
+import { formatDate, hasEnded } from '../../core/utils/deadline';
 import { letter } from '../../core/utils/letter';
 
 @Component({
@@ -31,6 +31,9 @@ export class SurveyDetail {
   private storedResults = signal<Record<string, number>>({});
 
   endsOn = computed(() => formatDate(this.survey()?.end_date ?? null));
+
+  /** Ended surveys are read-only: they can be viewed but no longer voted on. */
+  isEnded = computed(() => hasEnded(this.survey()?.end_date ?? null));
 
   hasVotes = computed(() =>
     (this.survey()?.content.questions ?? []).some((q) => this.questionTotal(q) > 0),

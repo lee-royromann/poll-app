@@ -195,6 +195,12 @@
   line-height: 100%;
   cursor: pointer;
 
+  /* Ended surveys are read-only, so their options look inactive. */
+  &--readonly {
+    cursor: default;
+    opacity: 0.6;
+  }
+
   &__letter {
     margin-right: 4px;
     font-weight: 700;

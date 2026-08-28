@@ -34,10 +34,11 @@
 
                 <div class="options">
                   @for (option of question.options; track option.id; let oi = $index) {
-                    <label class="option">
+                    <label class="option" [class.option--readonly]="isEnded()">
                       <input
                         class="option__box"
                         type="checkbox"
+                        [disabled]="isEnded()"
                         [checked]="isSelected(question.id, option.id)"
                         (change)="toggleOption(question, option.id)"
                       />
@@ -52,10 +53,12 @@
           </div>
         </div>
 
-        <button class="complete" type="button" [disabled]="!canComplete()" (click)="complete()">
-          Complete survey
-          <span class="complete__icon"></span>
-        </button>
+        @if (!isEnded()) {
+          <button class="complete" type="button" [disabled]="!canComplete()" (click)="complete()">
+            Complete survey
+            <span class="complete__icon"></span>
+          </button>
+        }
       </div>
 
       <div class="results" [class.results--open]="resultsOpen()">
@@ -65,7 +68,12 @@
         </button>
 
         <div class="results__body">
-          <h2 class="results__title">Survey results <span class="results__live">LIVE</span></h2>
+          <h2 class="results__title">
+            Survey results
+            @if (!isEnded()) {
+              <span class="results__live">LIVE</span>
+            }
+          </h2>
 
           @if (hasVotes()) {
           <div class="results__list">

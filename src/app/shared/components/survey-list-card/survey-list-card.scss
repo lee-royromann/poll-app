@@ -17,13 +17,8 @@
   background-color: rgb(217 217 217 / 8%);
   cursor: pointer;
 
-  /* Finished surveys cannot be opened, so they must not look clickable. */
-  &--ended {
-    cursor: default;
-  }
-
   /* Hover doubles the overlay opacity, matching the component sheet. */
-  &:not(&--ended):hover {
+  &:hover {
     background-color: rgb(217 217 217 / 16%);
   }
 
