@@ -9,6 +9,11 @@
 
 .create-link {
   @include mixins.primary-button;
+
+  /* On the narrow mobile header the button drops away, leaving just the logo. */
+  @media (max-width: 560px) {
+    display: none;
+  }
 }
 
 /* Longhands only, so they don't zero out the container's mobile side padding. */
@@ -24,6 +29,7 @@
 
   @include mixins.mobile {
     flex-direction: column;
+    gap: 24px;
   }
 }
 
@@ -34,19 +40,59 @@
   /* Shrinks from 702px in the fluid zone instead of overflowing; full width on mobile. */
   flex: 0 1 702px;
   min-width: 0;
-  padding: 40px;
+  /* Holds 40px down to 630px, then tapers to 16px on small phones so the survey
+     sheet keeps sensible margins instead of staying boxy on narrow screens. */
+  padding: clamp(16px, calc(16px + (100vw - 375px) * 24 / 255), 40px);
   border-radius: 0 160px 0 0;
   background-color: rgb(142 112 153 / 10%);
 
   @include mixins.mobile {
+    /* Stacked, the 702px basis would become a fixed height; reset it so the panel
+       grows and shrinks with the number of questions instead. */
+    flex: 0 1 auto;
     border-radius: 0 100px 0 0;
   }
 }
 
 .form {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+/* Adapted from the Create card's cancel button: once the header "Create survey"
+   button drops away (<=560px), an X close button appears top-right, level with the
+   Published tag. The panel is light here, so the X is masked dark to stay visible. */
+.close {
+  display: none;
+
+  @media (max-width: 560px) {
+    @include mixins.soft-button;
+    position: absolute;
+    top: 0;
+    right: 24px;
+    justify-content: center;
+    width: 42px;
+    height: 30px;
+    padding: 0;
+
+    &:hover {
+      background-color: rgb(255 183 112 / 60%);
+    }
+
+    &__icon {
+      width: 14px;
+      height: 14px;
+      background-color: var(--color-primary-purple);
+      mask: url("/close.svg") no-repeat center / 14px 14px;
+    }
+  }
+
+  /* Nudged further from the edge to clear the rounded corner on the smallest phones. */
+  @media (max-width: 460px) {
+    right: 42px;
+  }
 }
 
 .tag {
@@ -64,7 +110,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 8px;
+  margin-top: 16px;
   font-weight: 500;
   font-size: 14px;
 }
@@ -79,8 +125,15 @@
   color: #ee9236;
 
   @include mixins.mobile {
+    margin-top: 24px;
     font-size: 48px;
     line-height: 42px;
+  }
+
+  /* Below 630px the heading scales down fluidly so long titles stay readable. */
+  @media (max-width: 630px) {
+    font-size: clamp(32px, calc(32px + (100vw - 375px) * 16 / 255), 48px);
+    line-height: 0.9;
   }
 }
 
@@ -90,6 +143,10 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
+
+  @include mixins.mobile {
+    margin-top: 24px;
+  }
 }
 
 .questions {
@@ -156,8 +213,11 @@
 .complete {
   @include mixins.soft-button;
   align-self: flex-end;
+  gap: 10px;
   height: 37px;
-  margin-top: 24px;
+  /* A little more breathing room above and below so the button sits nicely. */
+  margin-top: 40px;
+  margin-bottom: 16px;
   color: var(--color-primary-purple);
   transition: background-color 200ms ease;
 
@@ -168,6 +228,21 @@
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
+  }
+
+  /* The check only appears once every question is answered and the button unlocks.
+     Drawn via mask in the button's own text colour so it blends in every state
+     (the done.svg badge carried its own peach square that clashed with the fill). */
+  &__icon {
+    display: none;
+    width: 24px;
+    height: 24px;
+    background-color: currentColor;
+    mask: url("/check.svg") no-repeat center / 24px 24px;
+  }
+
+  &:not(:disabled) &__icon {
+    display: block;
   }
 
   /* Mobile uses the solid primary button instead of the translucent desktop one. */
@@ -225,6 +300,8 @@
   @include mixins.mobile {
     flex: 0 0 auto;
     width: 100%;
+    /* A roomy gutter so the stretched bars don't run edge to edge. */
+    padding-inline: 64px;
 
     &__toggle {
       display: inline-flex;
@@ -241,14 +318,27 @@
       font-size: 18px;
       line-height: 100%;
       cursor: pointer;
+      transition: background-color 200ms ease;
+
+      /* A fine grey wash across the whole toggle area on hover. */
+      &:hover {
+        background-color: rgb(0 0 0 / 5%);
+      }
     }
 
-    /* Reuses the chevron asset, recoloured purple; points up when open. */
+    /* Reuses the chevron asset, recoloured purple; points up when open.
+       The rotation is animated so it turns smoothly on open/close. */
     &__arrow {
       width: 24px;
       height: 24px;
       background-color: var(--color-primary-purple);
       mask: url("/arrow_white.svg") no-repeat center / 15px 8px;
+      transition: transform 300ms ease, background-color 200ms ease;
+    }
+
+    /* On hover the arrow picks up the same orange as the LIVE label. */
+    &__toggle:hover &__arrow {
+      background-color: var(--color-primary-orange);
     }
 
     &__body {
@@ -263,6 +353,11 @@
     &--open &__arrow {
       transform: rotate(180deg);
     }
+  }
+
+  /* Below 700px the roomy gutter tapers fluidly down to 16px on small phones. */
+  @media (max-width: 700px) {
+    padding-inline: clamp(16px, calc(16px + (100vw - 375px) * 48 / 325), 64px);
   }
 }
 
@@ -302,6 +397,11 @@
     height: 14px;
     border-radius: 0 20px 20px 0;
     background-color: #ededed;
+
+    /* Stacked below the form, the bars stretch across the full width. */
+    @include mixins.mobile {
+      flex: 1;
+    }
   }
 
   &__fill {

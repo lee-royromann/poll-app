@@ -10,6 +10,10 @@
     <div class="layout">
       <div class="panel">
         <div class="form">
+          <a class="close" routerLink="/" aria-label="Close survey">
+            <span class="close__icon"></span>
+          </a>
+
           <span class="tag">Published</span>
 
           <div class="meta">
@@ -50,6 +54,7 @@
 
         <button class="complete" type="button" [disabled]="!canComplete()" (click)="complete()">
           Complete survey
+          <span class="complete__icon"></span>
         </button>
       </div>
 
