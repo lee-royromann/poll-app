@@ -81,7 +81,9 @@
         @for (question of questions(); track question.id; let qi = $index) {
           <div class="question">
             <div class="question__head">
-              <h2 class="question__title">{{ qi + 1 }}. Question</h2>
+              <h2 class="question__title">
+                {{ qi + 1 }}. Question <span class="field__required">*</span>
+              </h2>
               <button
                 class="delete"
                 type="button"
