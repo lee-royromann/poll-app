@@ -122,6 +122,16 @@
 
 .button {
   @include mixins.primary-button;
+
+  /* This button navigates away on click, so suppress the mixin's check-on-press
+     (it would flash briefly before the Create form opens); keep the plus instead. */
+  @media (hover: hover) {
+    &:active &__icon {
+      width: 24px;
+      background-image: url("/add_circle.svg");
+      background-size: 20px 20px;
+    }
+  }
 }
 
 .surveys {
