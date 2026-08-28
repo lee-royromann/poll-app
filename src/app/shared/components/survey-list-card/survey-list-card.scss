@@ -48,6 +48,20 @@
     }
   }
 
+  /* Not defined in the card design, so values derive from the app's on-dark body text;
+     clamped to two lines so a long description never blows up the card height. */
+  &__description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin: 0;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.35;
+    color: rgb(255 255 255 / 60%);
+  }
+
   /* Pinned to the bottom and widened to the longest label. */
   &__badge {
     @include mixins.notch-badge;

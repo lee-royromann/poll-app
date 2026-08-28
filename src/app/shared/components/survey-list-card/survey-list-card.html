@@ -6,6 +6,10 @@
   <p class="list-card__category">{{ survey().category }}</p>
   <h4 class="list-card__title">{{ survey().title }}</h4>
 
+  @if (survey().description; as description) {
+    <p class="list-card__description">{{ description }}</p>
+  }
+
   @if (endsLabel(); as label) {
     <span class="list-card__badge">{{ label }}</span>
   }
