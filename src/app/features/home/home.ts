@@ -9,6 +9,9 @@ import { Survey } from '../../core/models/survey';
 import { CATEGORIES } from '../../core/constants/categories';
 import { hasEnded } from '../../core/utils/deadline';
 
+/** How many of the soonest-ending surveys the highlight row shows. */
+const ENDING_SOON_COUNT = 3;
+
 @Component({
   selector: 'app-home',
   imports: [RouterLink, Header, SurveyCard, SurveyListCard, CategoryDropdown],
@@ -24,8 +27,8 @@ export class Home {
 
   pastSurveys = computed(() => this.surveys().filter((survey) => hasEnded(survey.end_date)));
 
-  /** The service already sorts by end date, so the first three are the most urgent. */
-  endingSoon = computed(() => this.activeSurveys().slice(0, 3));
+  /** The service already sorts by end date, so the first few are the most urgent. */
+  endingSoon = computed(() => this.activeSurveys().slice(0, ENDING_SOON_COUNT));
 
   activeTab = signal<'active' | 'past'>('active');
 
