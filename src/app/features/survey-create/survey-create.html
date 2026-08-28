@@ -1,4 +1,4 @@
-<section class="create">
+<main class="create">
   <app-header class="create__logo" logo="logo_dark.svg" />
 
   <div class="panel">
@@ -79,7 +79,7 @@
         @for (question of questions(); track question.id; let qi = $index) {
           <div class="question">
             <div class="question__head">
-              <h3 class="question__title">{{ qi + 1 }}. Question</h3>
+              <h2 class="question__title">{{ qi + 1 }}. Question</h2>
               <button
                 class="delete"
                 type="button"
@@ -162,4 +162,4 @@
       </div>
     }
   </div>
-</section>
+</main>
