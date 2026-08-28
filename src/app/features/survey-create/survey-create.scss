@@ -436,6 +436,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* When the hint no longer fits beside the button it wraps onto its own line
+     instead of squeezing the button (happens in the ~900-1020px column zone). */
+  flex-wrap: wrap;
+  row-gap: 4px;
   width: 100%;
   max-width: 429px;
 
